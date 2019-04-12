@@ -1,0 +1,70 @@
+#server:
+#  port: 20220
+
+spring: 
+    application: 
+           name: poc-auth-service
+           
+token:
+  expire-time: 259200000
+      
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+           
+poc:
+  datasource: 
+         slave: 
+              jdbc-url: jdbc:mysql://192.168.59.103:3307/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(Ce79p90E0278rbp2I2BSSw==)
+              password: ENC(7Gs+GG0qDl0bdRrjusXYtQ==)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+         usermaster:
+              jdbc-url: jdbc:mysql://192.168.59.103:3307/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(Ce79p90E0278rbp2I2BSSw==)
+              password: ENC(7Gs+GG0qDl0bdRrjusXYtQ==)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+         userslave:
+              jdbc-url: jdbc:mysql://192.168.59.103:3307/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(Ce79p90E0278rbp2I2BSSw==)
+              password: ENC(7Gs+GG0qDl0bdRrjusXYtQ==)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+
+feign:  
+  hystrix:  
+    enabled: true
+  
+logging:
+  level:
+    com.cups.poc: DEBUG
+    jdbc.audit: ERROR
+    jdbc.resultset: ERROR
+    jdbc.sqlonly: ERROR

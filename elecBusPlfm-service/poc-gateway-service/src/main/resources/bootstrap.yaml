@@ -1,0 +1,77 @@
+
+spring: 
+  application: 
+    name: poc-gateway-service
+  profiles:
+    active: dev
+#  boot:
+#    admin:
+#      client:
+#        url: ${adm:http://adm.poc.com:8220}
+server:
+  port: 8210
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+
+## Configuring info endpoint
+info:
+  app:
+    name: ${spring.application.name}
+    server-port: ${server.port}
+    java-version: ${java.version}
+    active: ${spring.profiles.active}
+
+
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://dc1.poc.com:8205/eureka,http://dc2.poc.com:8206/eureka,http://dc3.poc.com:8207/eureka
+#    healthcheck:
+#      enabled: true
+    lease:
+      duration: 5
+
+
+
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: poc-config-service
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      profile: test
+      discovery:
+        enabled: true
+        service-id: poc-config-service
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      profile: prod
+      discovery:
+        enabled: true
+        service-id: poc-config-service

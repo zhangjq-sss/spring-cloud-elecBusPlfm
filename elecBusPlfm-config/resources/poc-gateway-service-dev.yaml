@@ -1,0 +1,67 @@
+filter:
+   ignore-uri: /api/login,/api/logout,/api/static
+
+zuul:
+  host:
+    maxTotalConnections: 2048
+    maxPerRouteConnections: 1024
+  routes:
+    poc-auth-service:
+      path: /auth/**
+      serviceId: poc-auth-service
+    poc-order-service:
+      path: /order/**
+      serviceId: poc-order-service
+    poc-product-service1:
+      path: /product/**
+      serviceId: poc-product-service
+    poc-promotion-service:
+      path: /promotion/**
+      serviceId: poc-promotion-service
+    poc-payment-service:
+      path: /payment/**
+      serviceId: poc-payment-service
+    poc-customer-service:
+      path: /customer/**
+      serviceId: poc-customer-service
+    #poc-admin-service:
+      #path: /admin/**
+      #serviceId: poc-admin-service
+feign:  
+  hystrix:  
+    enabled: true
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+      maxQueueSize: 500
+      queueSizeRejectionThreshold: 300
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: THREAD
+          semaphore:
+            maxConcurrentRequests: 1024
+          thread:
+            timeoutInMilliseconds: 60000
+            ribbon:
+              ReadTimeout: 60000
+              ConnectTimeout: 30000
+ 
+logging:
+  level:
+    com.cups.poc: DEBUG
+    jdbc.audit: ERROR
+    jdbc.resultset: ERROR
+    jdbc.sqlonly: ERROR
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8

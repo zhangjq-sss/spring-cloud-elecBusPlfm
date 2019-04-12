@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com</groupId>
+	<artifactId>product-order-center</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+	<name>product-order-center</name>
+	<url>http://maven.apache.org</url>
+	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<properties>
+		<project.version>0.0.1-SNAPSHOT</project.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		
+		<spring-cloud.version>Finchley.RC1</spring-cloud.version>
+		<spring-boot.version>2.0.0.RELEASE</spring-boot.version>
+		<spring-boot-devtools.version>2.0.0.RELEASE</spring-boot-devtools.version>
+		<spring-tx.version>5.0.5.RELEASE</spring-tx.version>
+		
+		<springfox-swagger2.version>2.8.0</springfox-swagger2.version>
+		<prometheus.version>0.0.17</prometheus.version>
+		<commons-lang3.version>3.7</commons-lang3.version>
+		<commons-collections4.version>4.1</commons-collections4.version>
+		<lombok.version>1.16.22</lombok.version>
+		<guava.version>23.0</guava.version>
+		<fastjson.version>1.2.47</fastjson.version>
+		<log4jdbc.version>1.2</log4jdbc.version>
+		<mybatis.version>3.4.6</mybatis.version>
+		<mybatis-spring.version>1.3.2</mybatis-spring.version>
+		<mybatis-spring-boot-starter.version>1.3.2</mybatis-spring-boot-starter.version>
+		<spring-boot-admin-starter-client.version>2.0.0</spring-boot-admin-starter-client.version>
+		<docker-maven-plugin.version>1.1.1</docker-maven-plugin.version>
+		<jasypt-spring-boot-starter.version>1.14</jasypt-spring-boot-starter.version>
+	</properties>
+	
+	  <repositories>
+		    <repository>
+		        <id>spring-milestones</id>
+		        <name>Spring Milestones</name>
+		        <url>http://repo.spring.io/milestone</url>
+		        <snapshots>
+		            <enabled>false</enabled>
+		        </snapshots>
+		    </repository>
+		</repositories>
+		
+		<dependencyManagement>
+		    <dependencies>
+		        <dependency>
+		            <groupId>org.springframework.cloud</groupId>
+		            <artifactId>spring-cloud-dependencies</artifactId>
+		            <version>Finchley.RC1</version>
+		            <type>pom</type>
+		            <scope>import</scope>
+		        </dependency>
+		    </dependencies>
+		</dependencyManagement>
+		
+		
+	<dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4.version}</version>
+        </dependency>
+         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>     
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>${spring-boot-admin-starter-client.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jolokia</groupId>
+			<artifactId>jolokia-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.log4jdbc</groupId>
+			<artifactId>log4jdbc</artifactId>
+			<version>${log4jdbc.version}</version>
+		</dependency>
+    </dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		 <pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-compiler-plugin
+										</artifactId>
+										<versionRange>
+											[3.7,)
+										</versionRange>
+										<goals>
+											<goal>compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore/>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement> 
+	</build>
+	
+	<modules>
+		<module>poc-config-service</module>  	     <!-- 01配置中心 -->
+		<module>poc-discovery-service</module> 	     <!-- 02服务注册中心 -->
+		<module>poc-discovery-service2</module> 	     <!-- 02服务注册中心2 -->
+		<module>poc-discovery-service3</module> 	     <!-- 02服务注册中心3 -->
+		<module>poc-gateway-service</module> 	     <!-- 03服务API网关 -->
+		<module>poc-auth-service</module>  		     <!-- 04认证中心 -->
+		<module>poc-common-util</module>   		 <!-- 05工具基础库-->
+		<module>poc-domain-model</module>  		 <!-- 06公用领域模型-->
+		<module>poc-order-service</module>   	     <!-- 07订单服务-->
+		<module>poc-product-service</module>        <!-- 08产商品服务-->
+        <module>poc-promotion-service</module>      <!-- 9促销服务-->
+        <module>poc-payment-service</module>       <!--  10支付服务-->
+        <module>poc-job</module>                           <!--  11批量任务-->
+		<module>poc-customer-service</module>       <!--  12 客户服务-->
+		<module>poc-monitor-service</module>        <!--  13 监控服务-->
+        <module>poc-admin-service</module>           <!--  14 后台管理服务 用作后台管理-->
+    	<module>poc-generator</module>           <!--  14 mybatis generator管理-->
+        
+	</modules>
+	
+</project>

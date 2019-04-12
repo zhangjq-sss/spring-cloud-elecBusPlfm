@@ -1,0 +1,41 @@
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+spring:
+   datasource:
+      name: crm
+      url: jdbc:mysql://localhost:3306/cups_crm?useUnicode=true&characterEncoding=UTF8&useSSL=false
+      username: ENC(9397CYXMXkHpb5TVl6FlPw==)
+      password: ENC(xQWl6FxysKQYa+flq+EwVg==)
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      filters: stat
+      maxActive: 20
+      initialSize: 1
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+   jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
+feign:  
+  hystrix:  
+    enabled: true
+  
+logging:
+  level:
+    com.cups.poc: INFO
+    jdbc.audit: ERROR
+    jdbc.resultset: ERROR
+    jdbc.sqlonly: ERROR
+    jdbc.sqltiming: INFO
+    jdbc.connection: ERROR

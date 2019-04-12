@@ -1,0 +1,66 @@
+spring: 
+    application: 
+           name: poc-auth-service
+           
+token:
+  expire-time: 259200000
+      
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+           
+poc:
+  datasource:
+         slave:
+              jdbc-url: jdbc:mysql://rm-uf657pe908opn3261943-vpc-rw.mysql.rds.aliyuncs.com:3306/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(MFntvQKlgr+7tIenM2IUsTv6arZgndaN)
+              password: ENC(atpVuco/88S2XuFJw/OBmJdRI1YKojTsf7LcNghOff8=)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+         usermaster:
+              jdbc-url: jdbc:mysql://rm-uf657pe908opn3261943-vpc-rw.mysql.rds.aliyuncs.com:3306/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(MFntvQKlgr+7tIenM2IUsTv6arZgndaN)
+              password: ENC(atpVuco/88S2XuFJw/OBmJdRI1YKojTsf7LcNghOff8=)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+         userslave:
+              jdbc-url: jdbc:mysql://rm-uf657pe908opn3261943-vpc-rw.mysql.rds.aliyuncs.com:3306/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(MFntvQKlgr+7tIenM2IUsTv6arZgndaN)
+              password: ENC(atpVuco/88S2XuFJw/OBmJdRI1YKojTsf7LcNghOff8=)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+feign:  
+  hystrix:  
+    enabled: true
+  
+logging:
+  level:
+    com.cups.poc: WARN
+    jdbc.audit: ERROR
+    jdbc.resultset: ERROR
+    jdbc.sqlonly: ERROR

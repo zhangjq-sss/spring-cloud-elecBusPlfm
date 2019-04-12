@@ -1,0 +1,79 @@
+#server:
+#  port: 20220
+
+spring:
+    application:
+           name: poc-auth-service
+
+token:
+  expire-time: 259200000
+
+#eureka:
+#  instance:
+#    lease-expiration-duration-in-seconds: 30
+#    lease-renewal-interval-in-seconds: 10
+#    prefer-ip-address: true
+#    instance-id:  ${uip:192.168.153.249}:${server.port}
+#  client:
+#    serviceUrl:
+#      defaultZone: http://${dc1:192.168.59.155}:20205/eureka/,http://${dc2:192.168.59.155}:20206/eureka/,http://${dc3:192.168.59.155}:20207/eureka/
+#    healthcheck:
+#      enabled: true
+#    lease:
+#      duration: 5
+           
+poc:
+  datasource: 
+         slave: 
+              jdbc-url: jdbc:mysql://101.37.25.13:3306/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(NC9jAR0DEPXxZ3WIBKAcYA==)
+              password: ENC(tpXK81VPy9WNJ5RmgR514BakoJ4kkXmC)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+         usermaster:
+              jdbc-url: jdbc:mysql://101.37.25.13:3306/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(NC9jAR0DEPXxZ3WIBKAcYA==)
+              password: ENC(tpXK81VPy9WNJ5RmgR514BakoJ4kkXmC)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+         userslave:
+              jdbc-url: jdbc:mysql://101.37.25.13:3306/pocdb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=round
+              username: ENC(NC9jAR0DEPXxZ3WIBKAcYA==)
+              password: ENC(tpXK81VPy9WNJ5RmgR514BakoJ4kkXmC)
+              driver-class-name: com.mysql.jdbc.Driver
+              type: com.zaxxer.hikari.HikariDataSource
+              hikari:
+                minimum-idle: 5
+                maximum-pool-size: 15
+                idle-timeout: 30000
+                pool-name: poc-slave
+                max-lifetime: 1800000
+                connection-timeout: 30000
+                connection-test-query: SELECT 1
+
+feign:  
+  hystrix:  
+    enabled: true
+  
+logging:
+  level:
+    com.cups.poc: DEBUG
+    jdbc.audit: ERROR
+    jdbc.resultset: ERROR
+    jdbc.sqlonly: ERROR

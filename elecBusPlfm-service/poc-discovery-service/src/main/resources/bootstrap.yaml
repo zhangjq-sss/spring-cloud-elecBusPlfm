@@ -1,0 +1,87 @@
+spring:
+  application:
+    name: poc-discovery-service
+  profiles:
+    active: node1
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  info,health,refresh,shutdown
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+
+## Configuring info endpoint
+info:
+  app:
+    name: ${spring.application.name}
+    server-port: ${server.port}
+    java-version: ${java.version}
+
+
+
+---
+spring:
+  profiles: node1
+server:
+  port: 8205
+eureka:
+  server:
+      eviction-interval-timer-in-ms: 3000
+      response-cache-update-interval-ms:  3000
+      response-cache-auto-expiration-in-seconds:  30
+  instance:
+    preferIpAddress: true
+    hostname:  dc1.poc.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+#    healthcheck:
+#          enabled: true
+    serviceUrl:
+          defaultZone: http://dc2.poc.com:8206/eureka,http://dc3.poc.com:8207/eureka
+--- 
+spring:
+  profiles: node2
+server:
+  port: 8206
+eureka:
+  server:
+      eviction-interval-timer-in-ms: 3000
+      response-cache-update-interval-ms:  3000
+      response-cache-auto-expiration-in-seconds:  30
+  instance:
+    preferIpAddress: true
+    hostname:  dc2.poc.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+#    healthcheck:
+#      enabled: true
+    serviceUrl:
+      defaultZone:  http://dc1.poc.com:8205/eureka,http://dc3.poc.com:8207/eureka
+---
+spring:
+  profiles: node3
+server:
+  port: 8207
+eureka:
+  server:
+      eviction-interval-timer-in-ms: 3000
+      response-cache-update-interval-ms:  3000
+      response-cache-auto-expiration-in-seconds:  30
+  instance:
+    preferIpAddress: true
+    hostname:   dc3.poc.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+#    healthcheck:
+#          enabled: true
+    serviceUrl:
+          defaultZone:  http://dc1.poc.com:8205/eureka,http://dc2.poc.com:8206/eureka
+
+
