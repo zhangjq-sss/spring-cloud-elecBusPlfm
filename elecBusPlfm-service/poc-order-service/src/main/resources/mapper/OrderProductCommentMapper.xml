@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.order.mapper.OrderProductCommentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.order.OrderProductComment" id="orderProduccommentMap">
+        <result property="id" column="id"/>
+        <result property="spuId" column="spu_id"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="custId" column="cust_id"/>
+        <result property="custNickname" column="cust_nickname"/>
+        <result property="commentContent" column="comment_content"/>
+        <result property="commentScore" column="comment_score"/>
+        <result property="productInfoJson" column="product_info_json"/>
+        <result property="imageJson" column="image_json"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

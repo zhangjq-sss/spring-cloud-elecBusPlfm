@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.customer.mapper.CustomerCertificationMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.customer.CustomerCertification" id="customerCertificationMap">
+        <result property="id" column="id"/>
+        <result property="realName" column="real_name"/>
+        <result property="sex" column="sex"/>
+        <result property="nation" column="nation"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="homeAddress" column="home_address"/>
+        <result property="idCard" column="id_card"/>
+        <result property="idCardSignOffice" column="id_card_sign_office"/>
+        <result property="idCardValidTime" column="id_card_valid_time"/>
+        <result property="idCardExpireTime" column="id_card_expire_time"/>
+        <result property="faceScope" column="face_scope"/>
+        <result property="faceImageUrl" column="face_image_url"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

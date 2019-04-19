@@ -3,10 +3,6 @@ spring:
     name: poc-auth-service
   profiles:
     active: dev
-#  boot:
-#    admin:
-#      client:
-#        url: ${adm:http://adm.poc.com:8220}
         
 server:
   port: 9050

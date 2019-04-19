@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.promotion.mapper.PromotionCouponCodeMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.promotion.PromotionCouponCode" id="promotionCouponCodeMap">
+        <result property="id" column="id"/>
+        <result property="custId" column="cust_id"/>
+        <result property="couponId" column="coupon_id"/>
+        <result property="couponCode" column="coupon_code"/>
+        <result property="couponAmount" column="coupon_amount"/>
+        <result property="status" column="status"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

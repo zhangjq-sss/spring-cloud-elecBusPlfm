@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.product.mapper.ProducshopFollowMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.product.ProducshopFollow" id="producshopFollowMap">
+        <result property="id" column="id"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="custId" column="cust_id"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+</mapper>

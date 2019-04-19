@@ -13,7 +13,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/zhangjq-sss/cups-config.git
+          uri: https://github.com/zhangjq-sss/elec-config.git
           search-paths: /resources
           username: ENC(g8gmU15vH6ldFa19H23ifkelBySDze9Hv3g8wqnLNR4=)
           password: ENC(yWIsflUf/wLJ6t0R0Htg7W1bCwWhLhPW)

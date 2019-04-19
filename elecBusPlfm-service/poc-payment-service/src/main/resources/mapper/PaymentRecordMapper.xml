@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.payment.mapper.PaymentRecordMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.payment.PaymentRecord" id="paymenrecordMap">
+        <result property="id" column="id"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="chanId" column="chan_id"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="thirdNo" column="third_no"/>
+        <result property="payFee" column="pay_fee"/>
+        <result property="refundFee" column="refund_fee"/>
+        <result property="bankCard" column="bank_card"/>
+        <result property="bankCode" column="bank_code"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="version" column="version"/>
+        <result property="rechCompleteDate" column="rech_complete_date"/>
+        <result property="refuCompleteDate" column="refu_complete_date"/>
+        <result property="resultCode" column="result_code"/>
+        <result property="remark" column="remark"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

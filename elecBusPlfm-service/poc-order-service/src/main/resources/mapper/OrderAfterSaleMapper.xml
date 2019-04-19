@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.order.mapper.OrderAfterSaleMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.order.OrderAfterSale" id="orderAfterSaleMap">
+        <result property="id" column="id"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="afterSalseCount" column="after_salse_count"/>
+        <result property="afterSaleType" column="after_sale_type"/>
+        <result property="reason" column="reason"/>
+        <result property="problemDesc" column="problem_desc"/>
+        <result property="refundAmount" column="refund_amount"/>
+        <result property="refundAmountType" column="refund_amount_type"/>
+        <result property="pickupAddress" column="pickup_address"/>
+        <result property="pickupPhone" column="pickup_phone"/>
+        <result property="pickupName" column="pickup_name"/>
+        <result property="refundPickupType" column="refund_pickup_type"/>
+        <result property="receiveAddress" column="receive_address"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

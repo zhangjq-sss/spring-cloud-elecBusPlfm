@@ -1,15 +1,13 @@
 package com.common.base;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BaseContextHandler {
     public static ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<Map<String, Object>>();
@@ -72,7 +70,7 @@ public class BaseContextHandler {
         threadLocal.remove();
     }
 
-    @RunWith(MockitoJUnitRunner.class)
+//    @RunWith(MockitoJUnitRunner.class)
     public static class UnitTest {
         private Logger logger = LoggerFactory.getLogger(UnitTest.class);
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.order.mapper.OrderInvoiceMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.order.OrderInvoice" id="orderInvoiceMap">
+        <result property="id" column="id"/>
+        <result property="invoiceType" column="invoice_type"/>
+        <result property="invoiceRise" column="invoice_rise"/>
+        <result property="invoiceContent" column="invoice_content"/>
+        <result property="invoiceCode" column="invoice_code"/>
+        <result property="invoiceNo" column="invoice_no"/>
+        <result property="invoiceTime" column="invoice_time"/>
+        <result property="checkCode" column="check_code"/>
+        <result property="passwordArea" column="password_area"/>
+        <result property="severName" column="sever_name"/>
+        <result property="specType" column="spec_type"/>
+        <result property="count" column="count"/>
+        <result property="unitPrice" column="unit_price"/>
+        <result property="amount" column="amount"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="taxRate" column="tax_rate"/>
+        <result property="rateAmount" column="rate_amount"/>
+        <result property="sellerName" column="seller_name"/>
+        <result property="sellerRateNumber" column="seller_rate_number"/>
+        <result property="sellerAddress" column="seller_address"/>
+        <result property="sellerPhone" column="seller_phone"/>
+        <result property="sellerBankName" column="seller_bank_name"/>
+        <result property="sellerCardNo" column="seller_card_no"/>
+        <result property="remark" column="remark"/>
+        <result property="incomeName" column="income_name"/>
+        <result property="openInvoiceName" column="open_invoice_name"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

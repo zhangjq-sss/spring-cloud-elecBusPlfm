@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.order.mapper.OrderLogisticsMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.order.OrderLogistics" id="orderLogisticsMap">
+        <result property="id" column="id"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="logisticsId" column="logistics_id"/>
+        <result property="logisticsNo" column="logistics_no"/>
+        <result property="mailNo" column="mail_no"/>
+        <result property="sendTime" column="send_time"/>
+        <result property="receiveTime" column="receive_time"/>
+        <result property="ctrTime" column="ctr_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

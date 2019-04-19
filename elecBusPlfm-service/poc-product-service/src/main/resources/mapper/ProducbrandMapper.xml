@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.product.mapper.ProducbrandMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.product.Producbrand" id="producbrandMap">
+        <result property="id" column="id"/>
+        <result property="brandCode" column="brand_code"/>
+        <result property="brandName" column="brand_name"/>
+        <result property="brandNameEn" column="brand_name_en"/>
+        <result property="brandDesc" column="brand_desc"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.payment.mapper.PaymentAppChanParamMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.payment.PaymentAppChanParam" id="paymenappChanParamMap">
+        <result property="id" column="id"/>
+        <result property="appId" column="app_id"/>
+        <result property="mchId" column="mch_id"/>
+        <result property="appPubKey" column="app_pub_key"/>
+        <result property="appPriKey" column="app_pri_key"/>
+        <result property="certContext" column="cert_context"/>
+        <result property="subject" column="subject"/>
+        <result property="body" column="body"/>
+        <result property="appUrl" column="app_url"/>
+        <result property="ext1" column="ext_1"/>
+        <result property="ext2" column="ext_2"/>
+        <result property="ext3" column="ext_3"/>
+        <result property="ext4" column="ext_4"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.customer.mapper.CustomerAddressMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.domain.customer.CustomerAddress" id="customerAddressMap">
+        <result property="id" column="id"/>
+        <result property="custId" column="cust_id"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="region" column="region"/>
+        <result property="street" column="street"/>
+        <result property="postCode" column="post_code"/>
+        <result property="contactName" column="contact_name"/>
+        <result property="detailAddress" column="detail_address"/>
+        <result property="contactMobile" column="contact_mobile"/>
+        <result property="defaultYpe" column="default_ype"/>
+        <result property="crtTime" column="crt_time"/>
+        <result property="updTime" column="upd_time"/>
+    </resultMap>
+
+</mapper>
