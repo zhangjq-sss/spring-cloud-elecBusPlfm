@@ -69,6 +69,7 @@ public class AccessTokenFilter extends ZuulFilter {
 			ctx.setSendZuulResponse(false);
 			ctx.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
 			ctx.setResponseBody(getErrorResponse(HttpServletResponse.SC_UNAUTHORIZED, "token is empty"));
+			
 			return null;
 
 		} else if (!flag && token != null) {
@@ -80,7 +81,7 @@ public class AccessTokenFilter extends ZuulFilter {
 					ctx.setSendZuulResponse(false);
 					ctx.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
 					ctx.setResponseBody(getErrorResponse(HttpServletResponse.SC_UNAUTHORIZED, authResult.getMessage()));
-
+					ctx.getResponse().setContentType("text/html;charset=UTF-8");
 				} else {
 					log.debug("access token ok");
 					ctx.setSendZuulResponse(true);
