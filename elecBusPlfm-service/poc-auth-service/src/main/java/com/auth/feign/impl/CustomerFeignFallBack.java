@@ -13,8 +13,14 @@ public class CustomerFeignFallBack implements CustomerFeignController{
 
 	@Override
 	public RespCustomerModel selectByUsernameAndPassword(String username, String password) {
-		log.info("请求异常");
+		log.info("查询用户密码异常");
 		return null;
+	}
+
+	@Override
+	public boolean updateCustToken(Integer custId, String token) {
+		log.info("更新用户token异常");
+		return false;
 	}
 
 

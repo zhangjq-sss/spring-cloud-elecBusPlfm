@@ -67,6 +67,10 @@ public class Customer implements Serializable {
 	    //第三方QQ
     @Column(name = "third_qq")
     private String thirdQq;
+    
+    //token
+    @Column(name = "token")
+    private String token;
 	
 	    //注册时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -249,4 +253,11 @@ public class Customer implements Serializable {
 	public Date getUpdTime() {
 		return updTime;
 	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
 }

@@ -17,6 +17,7 @@
         <result property="shareCode" column="share_code"/>
         <result property="thirdWx" column="third_wx"/>
         <result property="thirdQq" column="third_qq"/>
+        <result property="token" column="token"/>
         <result property="crtTime" column="crt_time"/>
         <result property="updTime" column="upd_time"/>
     </resultMap>

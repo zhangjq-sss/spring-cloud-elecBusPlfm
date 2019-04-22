@@ -54,6 +54,9 @@ public class RespCustomerModel implements Serializable{
 
 	// 第三方QQ
 	private String thirdQq;
+	
+	// 第三方QQ
+	private String token;
 
 	// 注册时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

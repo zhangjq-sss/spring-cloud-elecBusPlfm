@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth.model.AuthResult;
 import com.auth.service.AuthService;
 import com.auth.util.JwtHelper;
+import com.common.msg.RrcResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +37,7 @@ public class AuthController {
 
 	@ResponseBody
 	@PostMapping("/checkToken")
-	public AuthResult checkToken(String token) {
+	public RrcResponse checkToken(String token) {
 		log.info("==invoke checkToken: {}, {}", JwtHelper.getUserName(token), token);
 		String message = JwtHelper.getUserName(token);
 		if (StringUtils.isNotBlank(message)) {
@@ -56,7 +56,7 @@ public class AuthController {
 	 * @return
 	 */
 	@PostMapping("/login")
-	public AuthResult userLogin(String userName, String password) throws UnsupportedEncodingException {
+	public RrcResponse login(String userName, String password) throws UnsupportedEncodingException {
 		return authService.login(userName, password);
 	}
 
@@ -68,7 +68,7 @@ public class AuthController {
 	 * @return
 	 */
 	@PostMapping("/loginOut")
-	public AuthResult userOut(String token) {
+	public RrcResponse loginOut(String token) {
 		return authService.loginOut(token);
 	}
 

@@ -2,36 +2,32 @@ package com.gateway.client.fallback;
 
 import org.springframework.stereotype.Component;
 
+import com.common.msg.CodeMsg;
+import com.common.msg.RrcResponse;
 import com.gateway.client.AuthSeviceFeignClient;
-import com.gateway.model.AuthResult;
 
-import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class AuthSeviceFeignClientFallback  implements  AuthSeviceFeignClient {
 
     @Override
-	public AuthResult  checkToken(String  token) {
-		AuthResult result = new AuthResult();
-		result.setCode(HttpServletResponse.SC_UNAUTHORIZED+"");
-		result.setMessage("out of auth service -checktoken");
-		return result;
+	public RrcResponse checkToken(String  token) {
+    	log.info("校验token请求出错-auth");
+		return new RrcResponse(CodeMsg.FAIL);
 	}
 
     @Override
-    public AuthResult userLogin(String userName, String password) {
-        AuthResult result = new AuthResult();
-        result.setCode(HttpServletResponse.SC_UNAUTHORIZED+"");
-        result.setMessage("out of auth service-userLogin");
-        return result;
+    public RrcResponse login(String userName, String password) {
+    	log.info("登录请求出错-auth");
+    	return new RrcResponse(CodeMsg.FAIL);
     }
 
 	@Override
-	public AuthResult userOut(String token) {
-		AuthResult result = new AuthResult();
-		result.setCode(HttpServletResponse.SC_UNAUTHORIZED+"");
-		result.setMessage("out of auth service-userOut");
-		return result;
+	public RrcResponse loginOut(String token) {
+		log.info("用户退出请求出错-auth");
+		return new RrcResponse(CodeMsg.FAIL);
 	}
 
 }

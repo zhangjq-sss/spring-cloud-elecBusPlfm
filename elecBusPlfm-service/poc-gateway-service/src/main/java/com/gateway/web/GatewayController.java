@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.common.msg.RrcResponse;
 import com.gateway.client.AuthSeviceFeignClient;
-import com.gateway.model.AuthResult;
 
 @RestController
 @RequestMapping("/api")
@@ -33,7 +33,7 @@ public class GatewayController {
 	}
 	
 	@RequestMapping(value = "/checkToken", method = RequestMethod.POST)
-	public AuthResult checkToken(@RequestParam("token") String  token) {
+	public RrcResponse checkToken(@RequestParam("token") String  token) {
 		return authSeviceFeignClient.checkToken(token);
 	}
 
@@ -44,8 +44,8 @@ public class GatewayController {
      * @return
      */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public AuthResult userLogin(@RequestParam("username") String username, @RequestParam("password") String  password) {
-        return authSeviceFeignClient.userLogin(username, password);
+    public RrcResponse userLogin(@RequestParam("userName") String userName, @RequestParam("password") String  password) {
+        return authSeviceFeignClient.login(userName, password);
     }
 
     /**
@@ -53,8 +53,8 @@ public class GatewayController {
      * @param token   token
      * @return
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public AuthResult  userOut(@RequestParam("token") String token){
-        return authSeviceFeignClient.userOut(token);
+    @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
+    public RrcResponse  userOut(@RequestParam("token") String token){
+        return authSeviceFeignClient.loginOut(token);
     }
 }

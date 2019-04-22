@@ -16,4 +16,8 @@ public interface CustomerFeignController {
 	@ResponseBody
 	@RequestMapping(value="/customer/selectByUsernameAndPassword", method=RequestMethod.POST)
 	RespCustomerModel selectByUsernameAndPassword(@RequestParam("username") String username, @RequestParam("password") String password);
+	
+	@ResponseBody
+	@RequestMapping(value="/customer/updateCustToken", method=RequestMethod.POST)
+	public boolean updateCustToken(@RequestParam("custId") Integer custId, @RequestParam("token") String token) ;
 }

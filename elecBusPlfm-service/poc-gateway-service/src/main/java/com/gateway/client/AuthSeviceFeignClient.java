@@ -4,14 +4,15 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.common.msg.RrcResponse;
 import com.gateway.client.fallback.AuthSeviceFeignClientFallback;
-import com.gateway.model.AuthResult;
 
 @FeignClient(name = "poc-auth-service", path = "/auth", fallback = AuthSeviceFeignClientFallback.class)
+//@FeignClient(name = "poc-auth-service", path = "/auth")
 public interface AuthSeviceFeignClient {
 
 	@PostMapping("/checkToken")
-	public AuthResult checkToken(@RequestParam("token") String token);
+	public RrcResponse checkToken(@RequestParam("token") String token);
 
 	/**
 	 * 维护平台用户登录
@@ -23,7 +24,7 @@ public interface AuthSeviceFeignClient {
 	 * @return
 	 */
 	@PostMapping("/login")
-	public AuthResult userLogin(@RequestParam("userName") String userName, @RequestParam("password") String password);
+	public RrcResponse login(@RequestParam("userName") String userName, @RequestParam("password") String password);
 
 	/**
 	 * 维护平台用户退出
@@ -32,6 +33,6 @@ public interface AuthSeviceFeignClient {
 	 * @return
 	 */
 	@PostMapping("/loginOut")
-	public AuthResult userOut(@RequestParam("token") String token);
+	public RrcResponse loginOut(@RequestParam("token") String token);
 
 }

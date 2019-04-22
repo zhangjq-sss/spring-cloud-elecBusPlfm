@@ -1,5 +1,6 @@
 package com.customer.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -34,5 +35,16 @@ public class CustomerServiceImpl extends BaseBiz<CustomerMapper,Customer> implem
 			return null;
 		}
 		return TransfModel.getRespCustomerModel(list.get(0));
+	}
+
+	@Override
+	public boolean updateCustToken(Integer custId, String token) {
+		Example example = new Example(Customer.class);
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("id", custId);
+		Customer record = new Customer();
+		record.setToken(token);
+		record.setUpdTime(new Date());
+		return mapper.updateByExampleSelective(record, example)>0?true:false;
 	}
 }

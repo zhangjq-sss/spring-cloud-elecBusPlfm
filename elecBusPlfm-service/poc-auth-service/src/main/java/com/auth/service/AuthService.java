@@ -2,7 +2,7 @@ package com.auth.service;
 
 import java.io.UnsupportedEncodingException;
 
-import com.auth.model.AuthResult;
+import com.common.msg.RrcResponse;
 
 /**
  * @ClassName: AuthService
@@ -18,7 +18,7 @@ public interface AuthService {
 	 * @param token
 	 * @return
 	 */
-	AuthResult checkToken(String token);
+	RrcResponse checkToken(String token);
 
 	/**
 	 * 平台用户登录
@@ -29,7 +29,7 @@ public interface AuthService {
 	 *            密码
 	 * @return
 	 */
-	AuthResult login(String userName, String password) throws UnsupportedEncodingException;
+	RrcResponse login(String userName, String password) throws UnsupportedEncodingException;
 
 	/**
 	 * 平台用户退出
@@ -37,5 +37,5 @@ public interface AuthService {
 	 * @param token
 	 * @return
 	 */
-	AuthResult loginOut(String token);
+	RrcResponse loginOut(String token);
 }

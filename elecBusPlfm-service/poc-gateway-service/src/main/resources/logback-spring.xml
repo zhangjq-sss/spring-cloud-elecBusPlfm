@@ -21,7 +21,7 @@
 	<!--<logger name="jdbc.resultset" level="ERROR" />-->
 	<!--<logger name="jdbc.connection" level="ERROR" />-->
 	
-	<root level="WARN">
+	<root level="INFO">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="STDOUT" />
 	</root>

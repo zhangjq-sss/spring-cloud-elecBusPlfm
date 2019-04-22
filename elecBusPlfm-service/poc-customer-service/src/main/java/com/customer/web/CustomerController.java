@@ -24,4 +24,10 @@ public class CustomerController extends BaseController<CustomerServiceImpl,Custo
 	public RespCustomerModel selectByUsernameAndPassword(String username, String password) {
 		return customerService.selectByUsernameAndPassword(username, password);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/updateCustToken", method=RequestMethod.POST)
+	public boolean updateCustToken(Integer custId, String token) {
+		return customerService.updateCustToken(custId, token);
+	}
 }

@@ -1,12 +1,21 @@
-package com.order.msg;
+package com.common.msg;
+
+import java.io.Serializable;
 
 import com.common.msg.BaseResponse;
 import com.common.msg.CodeMsg;
 
-public class RrcResponse extends BaseResponse {
+public class RrcResponse extends BaseResponse implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Object data;
 	
+	public boolean isSuccess() {
+		return this.getCode()==200;
+	}
 	/**
 	 * 成功时候的调用
 	 */
@@ -35,6 +44,9 @@ public class RrcResponse extends BaseResponse {
 		return new RrcResponse(codeMsg, data);
 	}
 
+	public RrcResponse() {
+	}
+	
 	public RrcResponse(int code, String message, Object data) {
 		super(code, message);
 		this.data = data;

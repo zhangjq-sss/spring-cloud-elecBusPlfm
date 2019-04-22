@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 
+import com.common.msg.RrcResponse;
 import com.common.util.JsonUtil;
-import com.gateway.model.AuthResult;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-public class ErrorFilter extends  ZuulFilter {
+public class ErrorFilter extends ZuulFilter {
 
 	public static final String KEY_ERROR = "hasError";
 
@@ -30,14 +30,9 @@ public class ErrorFilter extends  ZuulFilter {
 		return true;
 	}
 
-
 	public  String  getErrorResponse(int status, String message) {
-		AuthResult authResult=new AuthResult();
-		authResult.setCode(String.valueOf(status));
-		authResult.setMessage(message);
-		return JsonUtil.toJson(authResult);
+		return JsonUtil.toJson(new RrcResponse(status, message, null));
 	}
-
 
 	@Override
 	public Object run() {
@@ -52,10 +47,11 @@ public class ErrorFilter extends  ZuulFilter {
 				context.setResponseStatusCode(errorHandler.getResponseCode());
 				String body = errorHandler.getResponseBody(null, context.getThrowable());
 				context.setResponseBody(body);
-				
+
 			} else {
 				context.setResponseStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				context.setResponseBody( getErrorResponse(HttpServletResponse.SC_INTERNAL_SERVER_ERROR , context.getThrowable().getMessage()) );
+				context.setResponseBody(getErrorResponse(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+						context.getThrowable().getMessage()));
 			}
 			context.remove("throwable");
 			context.put(KEY_ERROR, true);

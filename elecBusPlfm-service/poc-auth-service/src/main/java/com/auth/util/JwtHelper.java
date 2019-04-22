@@ -2,6 +2,8 @@ package com.auth.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -14,26 +16,48 @@ import com.auth0.jwt.interfaces.DecodedJWT;
  */
 public class JwtHelper {
 
-	final static String SUBJECT_ID = "USERNAME";
-
+	final static String SUBJECT_USERNAME = "USERNAME";
+	final static String SUBJECT_REFRESHTIME = "REFRESHTIME";
+	
 	/**
-	 * 校验token是否正确
+	 * 生成签名,EXPIRE TIME 后过期 毫秒
 	 * 
-	 * @param token
+	 * @param userId
+	 *            用户名
 	 * @param secret
 	 *            用户的密码
-	 * @return 是否正确
+	 * @return 加密的token
 	 */
-	public static int checkToken(String token, String userId, String secret) {
+	public static String getToken(String username, String secret, long expireTime) {
+		try {
+			Date date = new Date(System.currentTimeMillis() + expireTime);
+			Algorithm algorithm = Algorithm.HMAC256(secret);
+			String token = JWT.create().withClaim(SUBJECT_USERNAME, username).withExpiresAt(date).withClaim(SUBJECT_REFRESHTIME, new Date()).sign(algorithm);
+			return token;
+		} catch (UnsupportedEncodingException e) {
+			return "";
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
+	/**
+	 * 校验token
+	 * @param token
+	 * @param username
+	 * @param secret
+	 * @return
+	 */
+	public static boolean checkToken(String token, String username, String secret) {
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(secret);
-			JWTVerifier verifier = JWT.require(algorithm).withClaim(SUBJECT_ID, userId).build();
-			DecodedJWT jwt = verifier.verify(token);
-			return 0;
+			JWTVerifier verifier = JWT.require(algorithm).withClaim(SUBJECT_USERNAME, username).build();
+			verifier.verify(token);
+			return true;
 		} catch (TokenExpiredException exception) {
-			return -1;
+			return false;
 		} catch (Exception exception) {
-			return -2;
+			return false;
 		}
 	}
 
@@ -45,32 +69,53 @@ public class JwtHelper {
 	public static String getUserName(String token) {
 		try {
 			DecodedJWT jwt = JWT.decode(token);
-			return jwt.getClaim(SUBJECT_ID).asString();
+			return jwt.getClaim(SUBJECT_USERNAME).asString();
 		} catch (Exception e) {
 			return "";
 		}
 	}
 
+	
 	/**
-	 * 生成签名,EXPIRE TIME 后过期
+	 * 获得token中的信息无需secret解密也能获得
 	 * 
-	 * @param userId
-	 *            用户名
-	 * @param secret
-	 *            用户的密码
-	 * @return 加密的token
+	 * @return token中包含的用户名
 	 */
-	public static String genToken(String username, String secret, long expireTime) {
+	public static Date getExpireDate(String token) {
 		try {
-			Date date = new Date(System.currentTimeMillis() + expireTime);
-			Algorithm algorithm = Algorithm.HMAC256(secret);
-			String token = JWT.create().withClaim(SUBJECT_ID, username).withExpiresAt(date).sign(algorithm);
-			return token;
-		} catch (UnsupportedEncodingException e) {
-			return "";
+			DecodedJWT jwt = JWT.decode(token);
+			return jwt.getExpiresAt();
 		} catch (Exception e) {
-			return "";
+			return null;
 		}
 	}
-
+	
+	/**
+	 * 获得token中的信息无需secret解密也能获得
+	 * 
+	 * @return token中包含的用户名
+	 */
+	public static Date getRefreshTime(String token) {
+		try {
+			DecodedJWT jwt = JWT.decode(token);
+			return jwt.getClaim(SUBJECT_REFRESHTIME).asDate();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public static Map<String, Object> getTokenMap(String token) {
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("token", token);
+		resultMap.put("refresh_time", JwtHelper.getRefreshTime(token));
+		resultMap.put("expire_time", JwtHelper.getExpireDate(token));
+		return resultMap;
+	}
+	
+	public static void main(String[] args) {
+//		String token = getToken("zjq", "MTIzNDU2", 30000);
+//		System.out.println(token);
+		System.out.println(checkToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVU0VSTkFNRSI6InpqcSIsImV4cCI6MTU1NTY2MTA4MH0.8bF3G8ZZayuvow0aM_HNr4ZzliflTAftu0xbvpKWK-s",
+				"zjq", "MTIzNDU2"));
+	}
 }

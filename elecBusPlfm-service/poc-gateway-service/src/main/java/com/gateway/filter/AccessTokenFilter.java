@@ -1,20 +1,21 @@
 package com.gateway.filter;
 
-import com.common.util.JsonUtil;
-import com.gateway.client.AuthSeviceFeignClient;
-import com.gateway.model.AuthResult;
-import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.common.msg.RrcResponse;
+import com.common.util.JsonUtil;
+import com.gateway.client.AuthSeviceFeignClient;
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 登录拦截器,未登录的用户直接返回未登录数据。
@@ -35,10 +36,7 @@ public class AccessTokenFilter extends ZuulFilter {
 	private AuthSeviceFeignClient authSeviceFeignClient;
 
 	public String getErrorResponse(int status, String message) {
-		AuthResult authResult = new AuthResult();
-		authResult.setCode(String.valueOf(status));
-		authResult.setMessage(message);
-		return JsonUtil.toJson(authResult);
+		return JsonUtil.toJson(new RrcResponse(status, message, null));
 	}
 
 	@Override
@@ -76,7 +74,7 @@ public class AccessTokenFilter extends ZuulFilter {
 		} else if (!flag && token != null) {
 
 			try {
-				AuthResult authResult = authSeviceFeignClient.checkToken(token.toString());
+				RrcResponse authResult = authSeviceFeignClient.checkToken(token.toString());
 				if (!authResult.isSuccess()) {
 					log.error("token invalid! {}", authResult.getMessage());
 					ctx.setSendZuulResponse(false);
