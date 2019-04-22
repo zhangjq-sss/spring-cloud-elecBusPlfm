@@ -30,4 +30,10 @@ public class CustomerController extends BaseController<CustomerServiceImpl,Custo
 	public boolean updateCustToken(Integer custId, String token) {
 		return customerService.updateCustToken(custId, token);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/selectByMobile", method=RequestMethod.POST)
+	public RespCustomerModel selectByMobile(String mobile) {
+		return customerService.selectByMobile(mobile);
+	}
 }

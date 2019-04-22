@@ -30,4 +30,16 @@ public class AuthSeviceFeignClientFallback  implements  AuthSeviceFeignClient {
 		return new RrcResponse(CodeMsg.FAIL);
 	}
 
+	@Override
+	public RrcResponse sendMobileCode(String mobile) {
+		log.info("发送短信验证码请求出错-auth");
+		return new RrcResponse(CodeMsg.FAIL);
+	}
+
+	@Override
+	public RrcResponse varifyMObileCode(String mobile, String code) {
+		log.info("校验手机验证码请求出错-auth");
+		return new RrcResponse(CodeMsg.FAIL);
+	}
+
 }

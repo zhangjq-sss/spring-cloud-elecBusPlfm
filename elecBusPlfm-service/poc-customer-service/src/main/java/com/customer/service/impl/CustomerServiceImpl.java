@@ -47,4 +47,16 @@ public class CustomerServiceImpl extends BaseBiz<CustomerMapper,Customer> implem
 		record.setUpdTime(new Date());
 		return mapper.updateByExampleSelective(record, example)>0?true:false;
 	}
+
+	@Override
+	public RespCustomerModel selectByMobile(String mobile) {
+		Example example = new Example(Customer.class);
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("mobile", mobile);
+		List<Customer> list = mapper.selectByExample(example);
+		if (list==null||list.size()==0) {
+			return null;
+		}
+		return TransfModel.getRespCustomerModel(list.get(0));
+	}
 }

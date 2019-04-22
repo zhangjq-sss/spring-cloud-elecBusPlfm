@@ -34,5 +34,11 @@ public interface AuthSeviceFeignClient {
 	 */
 	@PostMapping("/loginOut")
 	public RrcResponse loginOut(@RequestParam("token") String token);
+	
+	@PostMapping("/sendMobileCode")
+	public RrcResponse sendMobileCode(@RequestParam("mobile") String mobile);
+	
+	@PostMapping("/varifyMObileCode")
+	public RrcResponse varifyMObileCode(@RequestParam("mobile") String mobile, @RequestParam("code") String code);
 
 }

@@ -38,4 +38,13 @@ public interface AuthService {
 	 * @return
 	 */
 	RrcResponse loginOut(String token);
+	
+	/**
+	 * 发送手机验证码
+	 * @param mobile
+	 * @return
+	 */
+	RrcResponse sendMobileCode(String mobile);
+	
+	RrcResponse varifyMObileCode(String mobile, String code);
 }

@@ -23,5 +23,11 @@ public class CustomerFeignFallBack implements CustomerFeignController{
 		return false;
 	}
 
+	@Override
+	public RespCustomerModel selectByMobile(String mobile) {
+		log.info("根据手机号查询用户异常");
+		return null;
+	}
+
 
 }

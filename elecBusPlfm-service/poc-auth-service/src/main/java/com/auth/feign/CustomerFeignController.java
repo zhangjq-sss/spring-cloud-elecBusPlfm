@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.auth.feign.impl.CustomerFeignFallBack;
 import com.domain.customer.model.response.RespCustomerModel;
 
-@FeignClient(name="poc-customer-service", fallback=CustomerFeignFallBack.class)
-//@FeignClient("poc-customer-service")
+//@FeignClient(name="poc-customer-service", fallback=CustomerFeignFallBack.class)
+@FeignClient("poc-customer-service")
 public interface CustomerFeignController {
 
 	@ResponseBody
@@ -20,4 +20,8 @@ public interface CustomerFeignController {
 	@ResponseBody
 	@RequestMapping(value="/customer/updateCustToken", method=RequestMethod.POST)
 	public boolean updateCustToken(@RequestParam("custId") Integer custId, @RequestParam("token") String token) ;
+	
+	@ResponseBody
+	@RequestMapping(value="/customer/selectByMobile", method=RequestMethod.POST)
+	RespCustomerModel selectByMobile(@RequestParam("mobile") String mobile);
 }

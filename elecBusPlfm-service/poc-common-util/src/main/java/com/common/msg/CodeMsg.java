@@ -15,6 +15,8 @@ public class CodeMsg {
 	public static CodeMsg POC_ERROR_USER_ACCOUNT_LOCKED = new CodeMsg(603, "账号被锁定");
 	public static CodeMsg POC_ERROR_USER_ACCOUNT_STATUS_FALSE = new CodeMsg(604, "账号已经失效");
 	public static CodeMsg POC_ERROR_USER_UNACCOUNT = new CodeMsg(605, "账号或密码错误");
+	public static CodeMsg POC_ERROR_USER_NOMOBILE = new CodeMsg(606, "手机号不存在");
+	public static CodeMsg POC_ERROR_MOBILECODE = new CodeMsg(606, "手机验证码有误");
 
 	private CodeMsg( int code,String msg ) {
 		this.code = code;

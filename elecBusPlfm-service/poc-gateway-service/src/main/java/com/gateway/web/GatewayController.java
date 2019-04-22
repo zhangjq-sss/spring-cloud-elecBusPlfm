@@ -44,7 +44,7 @@ public class GatewayController {
      * @return
      */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public RrcResponse userLogin(@RequestParam("userName") String userName, @RequestParam("password") String  password) {
+    public RrcResponse login(@RequestParam("userName") String userName, @RequestParam("password") String  password) {
         return authSeviceFeignClient.login(userName, password);
     }
 
@@ -54,7 +54,17 @@ public class GatewayController {
      * @return
      */
     @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
-    public RrcResponse  userOut(@RequestParam("token") String token){
+    public RrcResponse  loginOut(@RequestParam("token") String token){
         return authSeviceFeignClient.loginOut(token);
+    }
+    
+    @RequestMapping(value = "/sendMobileCode", method = RequestMethod.POST)
+    public RrcResponse sendMobileCode(String mobile){
+        return authSeviceFeignClient.sendMobileCode(mobile);
+    }
+    
+    @RequestMapping(value = "/varifyMObileCode", method = RequestMethod.POST)
+    public RrcResponse varifyMObileCode(String mobile, String code){
+        return authSeviceFeignClient.varifyMObileCode(mobile, code);
     }
 }

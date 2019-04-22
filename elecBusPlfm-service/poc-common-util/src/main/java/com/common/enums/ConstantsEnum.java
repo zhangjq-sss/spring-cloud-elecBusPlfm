@@ -3,7 +3,11 @@ package com.common.enums;
 public enum ConstantsEnum{
 	
 	//卡类型
-	CUSTOMER_STATUS_VALID("生效", "0"), CUSTOMER_STATUS_EXPIRE("失效", "1")
+	CUSTOMER_STATUS_VALID("生效", "0"), CUSTOMER_STATUS_EXPIRE("失效", "1"),
+	//redis配置
+	REDIS_MOBILE("手机号关键字", "MOBILE_"),
+	//jwt秘银
+	JWT_SECRET("手机号关键字", "SECRET_")
     ;
 
     // 成员变量

@@ -27,7 +27,7 @@ public class AccessTokenFilter extends ZuulFilter {
 
 	// private static final String PARAM_TOKEN = "token";
 
-	@Value("${filter.ignore-uri:/api/login,/api/logout,/api/static}")
+	@Value("${filter.ignore-uri:/api/login,/api/logout,/api/static,/api/sendMobileCode,/api/varifyMObileCode}")
 	private String ignoreUri;
 
 	private ResponseHandler responseHandler;

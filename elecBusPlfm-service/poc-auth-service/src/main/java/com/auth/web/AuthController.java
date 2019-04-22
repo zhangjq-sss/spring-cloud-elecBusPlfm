@@ -71,5 +71,15 @@ public class AuthController {
 	public RrcResponse loginOut(String token) {
 		return authService.loginOut(token);
 	}
+	
+	@PostMapping("/sendMobileCode")
+	public RrcResponse sendMobileCode(String mobile) {
+		return authService.sendMobileCode(mobile);
+	}
+	
+	@PostMapping("/varifyMObileCode")
+	public RrcResponse varifyMObileCode(String mobile, String code) {
+		return authService.varifyMObileCode(mobile, code);
+	}
 
 }
