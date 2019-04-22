@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.auth.feign.impl.CustomerFeignFallBack;
 import com.domain.customer.model.response.RespCustomerModel;
 
-//@FeignClient(name="poc-customer-service", fallback=CustomerFeignFallBack.class)
-@FeignClient("poc-customer-service")
+@FeignClient(name="poc-customer-service", fallback=CustomerFeignFallBack.class)
+//@FeignClient("poc-customer-service")
 public interface CustomerFeignController {
 
 	@ResponseBody
