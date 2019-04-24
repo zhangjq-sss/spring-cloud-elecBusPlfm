@@ -22,4 +22,5 @@ sleep 20
 sleep 5
 ./start-gateway-service.sh
 sleep 5
-
+./start-customer-service.sh
+sleep 5
