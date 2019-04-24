@@ -9,7 +9,7 @@ import com.common.base.BaseBiz;
 import com.customer.mapper.CustomerMapper;
 import com.customer.service.CustomerService;
 import com.domain.customer.Customer;
-import com.domain.customer.model.TransfModel;
+import com.domain.customer.model.CustTransfModel;
 import com.domain.customer.model.response.RespCustomerModel;
 
 import tk.mybatis.mapper.entity.Example;
@@ -34,7 +34,7 @@ public class CustomerServiceImpl extends BaseBiz<CustomerMapper,Customer> implem
 		if (list==null||list.size()==0) {
 			return null;
 		}
-		return TransfModel.getRespCustomerModel(list.get(0));
+		return CustTransfModel.getRespCustomerModel(list.get(0));
 	}
 
 	@Override
@@ -57,6 +57,6 @@ public class CustomerServiceImpl extends BaseBiz<CustomerMapper,Customer> implem
 		if (list==null||list.size()==0) {
 			return null;
 		}
-		return TransfModel.getRespCustomerModel(list.get(0));
+		return CustTransfModel.getRespCustomerModel(list.get(0));
 	}
 }

@@ -7,16 +7,25 @@ public class CodeMsg {
 	
 	//通用的错误码
 	public static CodeMsg SUCCESS = new CodeMsg(200, "success");
-	public static CodeMsg FAIL = new CodeMsg(500, "请求发送异常");
+	public static CodeMsg FAIL = new CodeMsg(500, "系统异常");
+	public static CodeMsg POC_ERROR_PARAMETER = new CodeMsg(600, "参数有误");
 	
-	//auth模块
-	public static CodeMsg POC_ERROR_USER_NOACCOUNT = new CodeMsg(601, "账号或token不存在");
-	public static CodeMsg POC_ERROR_PARAMETER = new CodeMsg(602, "参数错误");
-	public static CodeMsg POC_ERROR_USER_ACCOUNT_LOCKED = new CodeMsg(603, "账号被锁定");
-	public static CodeMsg POC_ERROR_USER_ACCOUNT_STATUS_FALSE = new CodeMsg(604, "账号已经失效");
-	public static CodeMsg POC_ERROR_USER_UNACCOUNT = new CodeMsg(605, "账号或密码错误");
-	public static CodeMsg POC_ERROR_USER_NOMOBILE = new CodeMsg(606, "手机号不存在");
-	public static CodeMsg POC_ERROR_MOBILECODE = new CodeMsg(606, "手机验证码有误");
+	//auth模块10001
+	public static CodeMsg POC_ERROR_USER_NOACCOUNT = new CodeMsg(10001, "账号或token不存在");
+	public static CodeMsg POC_ERROR_USER_ACCOUNT_LOCKED = new CodeMsg(10002, "账号被锁定");
+	public static CodeMsg POC_ERROR_USER_ACCOUNT_STATUS_FALSE = new CodeMsg(10003, "账号已经失效");
+	public static CodeMsg POC_ERROR_USER_UNACCOUNT = new CodeMsg(10004, "账号或密码错误");
+	public static CodeMsg POC_ERROR_USER_NOMOBILE = new CodeMsg(10005, "手机号不存在");
+	public static CodeMsg POC_ERROR_MOBILECODE = new CodeMsg(10006, "手机验证码有误");
+	
+	//order模块20001
+	
+	//product模块30001
+	public static CodeMsg POC_ERROR_STOCK_LOW = new CodeMsg(30001, "当前库存不允许添加这么多");
+	
+	//payment模块40001
+	
+	//promotion模块50001
 
 	private CodeMsg( int code,String msg ) {
 		this.code = code;

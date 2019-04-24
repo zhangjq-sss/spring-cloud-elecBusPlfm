@@ -4,6 +4,8 @@ public enum ConstantsEnum{
 	
 	//卡类型
 	CUSTOMER_STATUS_VALID("生效", "0"), CUSTOMER_STATUS_EXPIRE("失效", "1"),
+	//加入购物车状态
+	ORDERCART_STATUS_ADD("新加入", "0"),ORDERCART_STATUS_EXPIRE("过期", "1"),ORDERCART_STATUS_COUNTZERO("sku数量为0", "2"),
 	//redis配置
 	REDIS_MOBILE("手机号关键字", "MOBILE_"),
 	//jwt秘银
@@ -45,6 +47,10 @@ public enum ConstantsEnum{
 
     public void setIndex(String index) {
         this.index = index;
+    }
+    
+    public int getIndexInt() {
+        return Integer.parseInt(index);
     }
 }
 

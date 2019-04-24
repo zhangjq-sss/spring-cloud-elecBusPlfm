@@ -12,6 +12,7 @@
         <result property="stock" column="stock"/>
         <result property="shopId" column="shop_id"/>
         <result property="spuId" column="spu_id"/>
+        <result property="version" column="version"/>
         <result property="crtTime" column="crt_time"/>
         <result property="updTime" column="upd_time"/>
     </resultMap>

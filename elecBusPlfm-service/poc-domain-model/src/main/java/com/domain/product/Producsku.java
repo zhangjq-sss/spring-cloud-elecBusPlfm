@@ -19,7 +19,7 @@ public class Producsku implements Serializable {
 	
 	    //
     @Id
-    private Long id;
+    private Integer id;
 	
 	    //sku编号,唯一
     @Column(name = "sku_no")
@@ -39,11 +39,13 @@ public class Producsku implements Serializable {
 	
 	    //商铺id,为0表示自营
     @Column(name = "shop_id")
-    private Long shopId;
+    private Integer shopId;
 	
 	    //spu_id
     @Column(name = "spu_id")
-    private Long spuId;
+    private Integer spuId;
+    
+    private Integer version;
 	
 	    //
     @Column(name = "crt_time")
@@ -57,13 +59,13 @@ public class Producsku implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	/**
 	 * 获取：
 	 */
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 	/**
@@ -117,25 +119,25 @@ public class Producsku implements Serializable {
 	/**
 	 * 设置：商铺id,为0表示自营
 	 */
-	public void setShopId(Long shopId) {
+	public void setShopId(Integer shopId) {
 		this.shopId = shopId;
 	}
 	/**
 	 * 获取：商铺id,为0表示自营
 	 */
-	public Long getShopId() {
+	public Integer getShopId() {
 		return shopId;
 	}
 	/**
 	 * 设置：spu_id
 	 */
-	public void setSpuId(Long spuId) {
+	public void setSpuId(Integer spuId) {
 		this.spuId = spuId;
 	}
 	/**
 	 * 获取：spu_id
 	 */
-	public Long getSpuId() {
+	public Integer getSpuId() {
 		return spuId;
 	}
 	/**
@@ -162,4 +164,11 @@ public class Producsku implements Serializable {
 	public Date getUpdTime() {
 		return updTime;
 	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	
 }

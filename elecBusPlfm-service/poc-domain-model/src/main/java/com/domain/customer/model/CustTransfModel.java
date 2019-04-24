@@ -7,7 +7,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import com.domain.customer.Customer;
 import com.domain.customer.model.response.RespCustomerModel;
 
-public class TransfModel {
+public class CustTransfModel {
 
 	public static RespCustomerModel getRespCustomerModel(Customer customer) {
 		if (customer==null) {

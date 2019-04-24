@@ -1,6 +1,18 @@
 package com.product.service;
 
-public interface ProducskuService {
+import com.common.base.ICRUDService;
+import com.common.msg.RrcResponse;
+import com.domain.product.Producsku;
 
+public interface ProducskuService extends ICRUDService<Producsku>{
+
+	/**
+	 * 更新sku产品数量
+	 * @param skuId
+	 * @param count 增减数量
+	 * @param version
+	 * @return
+	 */
+	RrcResponse updateProdCount(Integer skuId, int count);
 	
 }
