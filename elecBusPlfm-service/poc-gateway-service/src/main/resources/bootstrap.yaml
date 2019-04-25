@@ -57,6 +57,19 @@ spring:
       discovery:
         enabled: true
         service-id: poc-config-service
+server:
+  port: 8210
+---
+spring:
+  profiles: dev1
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: poc-config-service
+server:
+  port: 8211
 ---
 spring:
   profiles: test

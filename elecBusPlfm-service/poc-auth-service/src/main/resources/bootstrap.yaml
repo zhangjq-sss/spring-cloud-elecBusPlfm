@@ -3,9 +3,6 @@ spring:
     name: poc-auth-service
   profiles:
     active: dev
-        
-server:
-  port: 9050
 
 management:
   endpoints:
@@ -54,6 +51,19 @@ spring:
       discovery:
         enabled: true
         service-id: poc-config-service
+server:
+  port: 9050
+---
+spring:
+  profiles: dev1
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: poc-config-service
+server:
+  port: 9051
 ---
 spring:
   profiles: test

@@ -3,8 +3,12 @@ spring:
     name: poc-customer-service
   profiles:
     active: dev
-server:
-  port:  9040
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: poc-config-service
 
 management:
   endpoints:
@@ -52,6 +56,19 @@ spring:
       discovery:
         enabled: true
         service-id: poc-config-service
+server:
+  port:  9040
+---
+spring:
+  profiles: dev1
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: poc-config-service
+server:
+  port:  9041
 ---
 spring:
   profiles: test
