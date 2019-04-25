@@ -187,7 +187,7 @@
 		<module>poc-monitor-service</module>        <!--  13 监控服务-->
         <module>poc-admin-service</module>           <!--  14 后台管理服务 用作后台管理-->
     	<module>poc-generator</module>           <!--  14 mybatis generator管理-->
-        
-	</modules>
+    <module>tx-Manager</module>
+  </modules>
 	
 </project>
