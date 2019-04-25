@@ -10,6 +10,19 @@ public class CodeMsg {
 	public static CodeMsg FAIL = new CodeMsg(500, "对不起，系统异常");
 	public static CodeMsg POC_ERROR_PARAMETER = new CodeMsg(600, "参数有误");
 	
+	//用户模块出错4001
+	
+	
+	//gateway错误码5001
+	public static CodeMsg POC_ERROR_VARIFYTOKEN_AUTH = new CodeMsg(5001, "校验token请求出错-auth");
+	public static CodeMsg POC_ERROR_LOGIN_AUTH = new CodeMsg(5002, "登录请求出错-auth");
+	public static CodeMsg POC_ERROR_LOGOUT_AUTH = new CodeMsg(5003, "用户退出请求出错-auth");
+	public static CodeMsg POC_ERROR_SENDCODE_AUTH = new CodeMsg(5004, "发送短信验证码请求出错-auth");
+	public static CodeMsg POC_ERROR_VARIFYCODE_AUTH = new CodeMsg(5005, "校验手机验证码请求出错-auth");
+	
+	public static CodeMsg POC_ERROR_REQUEST_OTHER_SERVICE = new CodeMsg(9999, "调用其他服务异常");
+	public static CodeMsg POC_ERROR_TOKEN_EXPIRE = new CodeMsg(8888, "TOKEN 无效");
+	
 	//auth模块10001
 	public static CodeMsg POC_ERROR_USER_NOACCOUNT = new CodeMsg(10001, "账号或token不存在");
 	public static CodeMsg POC_ERROR_USER_ACCOUNT_LOCKED = new CodeMsg(10002, "账号被锁定");
@@ -19,6 +32,7 @@ public class CodeMsg {
 	public static CodeMsg POC_ERROR_MOBILECODE = new CodeMsg(10006, "手机验证码有误");
 	
 	//order模块20001
+	public static CodeMsg POC_ERROR_UPDATEPRODSTOCK = new CodeMsg(20001, "对不起，调用更新库存失败");
 	
 	//product模块30001
 	public static CodeMsg POC_ERROR_STOCK_LOW = new CodeMsg(30001, "当前库存不允许添加这么多");

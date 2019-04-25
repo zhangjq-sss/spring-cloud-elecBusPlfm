@@ -1,8 +1,5 @@
 package com.gateway.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Bean;
@@ -12,6 +9,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.common.msg.CodeMsg;
+import com.common.msg.RrcResponse;
 import com.common.util.JsonUtil;
 import com.gateway.filter.AccessTokenFilter;
 import com.gateway.filter.ErrorFilter;
@@ -51,8 +50,6 @@ public class CustomZuulFilterConfiguration {
 	@Component
 	public class AccessTokenResponseHandler  implements ResponseHandler  {
 
-		final static String invalidTokenMessage ="token invalid";
-
 		@Override
 		public int getResponseCode() {
 			return HttpServletResponse.SC_OK;
@@ -60,10 +57,7 @@ public class CustomZuulFilterConfiguration {
 
 		@Override
 		public String getResponseBody(String originMessage, Throwable e) {
-			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("status", HttpServletResponse.SC_BAD_REQUEST);
-			result.put("message", invalidTokenMessage);
-			return JsonUtil.toJson(result);
+			return JsonUtil.toJson(new RrcResponse(CodeMsg.POC_ERROR_TOKEN_EXPIRE.getCode(), e.getMessage(), null));
 		}
 	}
 
@@ -73,7 +67,6 @@ public class CustomZuulFilterConfiguration {
 	@Component
 	public class CustomErrorHandler implements ResponseHandler {
 
-		final static String errorMessage ="invoke error";
 
 		@Override
 		public int getResponseCode() {
@@ -82,10 +75,7 @@ public class CustomZuulFilterConfiguration {
 
 		@Override
 		public String getResponseBody(String originMessage, Throwable e) {
-			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("status", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			result.put("message", errorMessage);
-			return JsonUtil.toJson(result);
+			return JsonUtil.toJson(new RrcResponse(CodeMsg.POC_ERROR_REQUEST_OTHER_SERVICE.getCode(), e.getMessage(), null));
 		}
 	}
 

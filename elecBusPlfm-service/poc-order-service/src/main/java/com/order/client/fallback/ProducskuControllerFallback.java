@@ -15,7 +15,7 @@ public class ProducskuControllerFallback implements ProducskuControllerClient{
 	@Override
 	public RrcResponse updateProdCount(Integer skuId, int count) {
 		log.info("更新库存失败");
-		return new RrcResponse(CodeMsg.FAIL);
+		return new RrcResponse(CodeMsg.POC_ERROR_UPDATEPRODSTOCK);
 	}
 
 }
