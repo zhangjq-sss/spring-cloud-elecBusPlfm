@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.common.base.BaseBiz;
 import com.common.enums.ConstantsEnum;
 import com.common.msg.CodeMsg;
@@ -16,6 +17,8 @@ import com.order.client.ProducskuControllerClient;
 import com.order.mapper.OrderCartMapper;
 import com.order.service.OrderCartService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 购物车表
  *
@@ -24,6 +27,7 @@ import com.order.service.OrderCartService;
  * @date 2019-04-18 13:36:27
  */
 @Service
+@Slf4j
 public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> implements OrderCartService{
 	
 	@Autowired
@@ -31,7 +35,10 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 
 	@Override
 	@Transactional
+	@LcnTransaction
 	public RrcResponse addShopingCart(AddShopingCartModel addShopingCartModel) {
+		long start = System.currentTimeMillis();
+		log.info("加入购物车开始--------" + start);
 		RrcResponse response = new RrcResponse(CodeMsg.SUCCESS);
 		//校验参数
 		OrderCart cart = OrderTransfModel.getOrderCart(addShopingCartModel);
@@ -46,7 +53,7 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 		//入库
 		cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
 		insertSelective(cart);
-//		int a = 1/0;
+		log.info("加入购物车结束--------" + (System.currentTimeMillis()-start));
 		return response;
 	}
 
@@ -59,7 +66,7 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 	@Override
 	public Boolean validateForInsert(OrderCart entity) {
 		if (entity==null||entity.getSkuId()==null||entity.getCustId()==null||entity.getSpuId()==null||entity.getShopId()==null
-				||StringUtils.isBlank(entity.getProductName())||entity.getProductPrice()==null||entity.getProductCount()==0) {
+				||StringUtils.isBlank(entity.getProductName())||entity.getProductPrice()==null||entity.getProductCount()==null) {
 			return false;
 		}
 		return true;
