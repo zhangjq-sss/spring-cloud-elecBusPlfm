@@ -1,4 +1,4 @@
-package com.auth.util;
+package com.common.jwt;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;

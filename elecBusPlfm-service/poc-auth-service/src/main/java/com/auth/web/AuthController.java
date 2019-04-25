@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.auth.service.AuthService;
-import com.auth.util.JwtHelper;
+import com.common.jwt.JwtHelper;
 import com.common.msg.RrcResponse;
 
 import lombok.extern.slf4j.Slf4j;
