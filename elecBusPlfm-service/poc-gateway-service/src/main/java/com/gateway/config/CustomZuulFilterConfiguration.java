@@ -57,7 +57,7 @@ public class CustomZuulFilterConfiguration {
 
 		@Override
 		public String getResponseBody(String originMessage, Throwable e) {
-			return JsonUtil.toJson(new RrcResponse(CodeMsg.POC_ERROR_TOKEN_EXPIRE.getCode(), e.getMessage(), null));
+			return JsonUtil.toJson(new RrcResponse(CodeMsg.POC_ERROR_TOKEN_EXPIRE));
 		}
 	}
 
@@ -75,7 +75,7 @@ public class CustomZuulFilterConfiguration {
 
 		@Override
 		public String getResponseBody(String originMessage, Throwable e) {
-			return JsonUtil.toJson(new RrcResponse(CodeMsg.POC_ERROR_REQUEST_OTHER_SERVICE.getCode(), e.getMessage(), null));
+			return JsonUtil.toJson(new RrcResponse(CodeMsg.POC_ERROR_REQUEST_OTHER_SERVICE));
 		}
 	}
 

@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 
+import com.common.enums.ConstantsEnum;
+import com.common.jwt.JwtHelper;
+import com.common.msg.CodeMsg;
 import com.common.msg.RrcResponse;
 import com.common.util.JsonUtil;
-import com.gateway.client.AuthSeviceFeignClient;
+import com.domain.customer.model.response.RespCustomerModel;
+import com.gateway.client.CustomerFeignController;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
@@ -31,9 +35,8 @@ public class AccessTokenFilter extends ZuulFilter {
 	private String ignoreUri;
 
 	private ResponseHandler responseHandler;
-
 	@Autowired
-	private AuthSeviceFeignClient authSeviceFeignClient;
+	private CustomerFeignController customerFeignController;
 
 	public String getErrorResponse(int status, String message) {
 		return JsonUtil.toJson(new RrcResponse(status, message, null));
@@ -67,20 +70,17 @@ public class AccessTokenFilter extends ZuulFilter {
 		if (!flag && token == null) {
 			log.warn("token is empty");
 			ctx.setSendZuulResponse(false);
-			ctx.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
-			ctx.setResponseBody(getErrorResponse(HttpServletResponse.SC_UNAUTHORIZED, "token is empty"));
-			
+			ctx.setResponseStatusCode(CodeMsg.POC_ERROR_USER_NOACCOUNT.getCode());
+			ctx.setResponseBody(getErrorResponse(CodeMsg.POC_ERROR_USER_NOACCOUNT.getCode(),CodeMsg.POC_ERROR_USER_NOACCOUNT.getMsg()));
 			return null;
 
 		} else if (!flag && token != null) {
-
 			try {
-				RrcResponse authResult = authSeviceFeignClient.checkToken(token.toString());
-				if (!authResult.isSuccess()) {
-					log.error("token invalid! {}", authResult.getMessage());
+				if (!checkToken(token)) {
+					log.error("token invalid! {}", CodeMsg.POC_ERROR_TOKEN_EXPIRE.getMsg());
 					ctx.setSendZuulResponse(false);
-					ctx.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
-					ctx.setResponseBody(getErrorResponse(HttpServletResponse.SC_UNAUTHORIZED, authResult.getMessage()));
+					ctx.setResponseStatusCode(CodeMsg.POC_ERROR_TOKEN_EXPIRE.getCode());
+					ctx.setResponseBody(getErrorResponse(CodeMsg.POC_ERROR_TOKEN_EXPIRE.getCode(),CodeMsg.POC_ERROR_TOKEN_EXPIRE.getMsg()));
 					ctx.getResponse().setContentType("text/html;charset=UTF-8");
 				} else {
 					log.debug("access token ok");
@@ -116,6 +116,26 @@ public class AccessTokenFilter extends ZuulFilter {
 	@Override
 	public String filterType() {
 		return FilterConstants.PRE_TYPE;
+	}
+	
+	public boolean checkToken(String token) {
+		// 获取用户名
+		String userName = JwtHelper.getUserName(token);
+		if (StringUtils.isBlank(userName)) {
+			return false;
+		}
+		// 查询数据库获取用户
+		RespCustomerModel customer = customerFeignController.selectByUsernameAndPassword(userName, null);
+		if (customer == null || StringUtils.isBlank(customer.getToken())) {
+			return false;
+		}
+		// 校验token
+		if (!JwtHelper.checkToken(token, userName, ConstantsEnum.JWT_SECRET.getIndex() + userName)
+				|| !token.equals(customer.getToken())) {
+			return false;
+		}
+		
+		return true;
 	}
 
 }
