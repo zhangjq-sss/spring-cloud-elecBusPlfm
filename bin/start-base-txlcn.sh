@@ -16,7 +16,7 @@ sleep 5
 sleep 5
 #./start-monitor-service.sh
 #sleep 5
-./start-tx-Manager.sh
+./start-poc-tx-manager.sh
 sleep 5
 ./start-config-service.sh
 sleep 20

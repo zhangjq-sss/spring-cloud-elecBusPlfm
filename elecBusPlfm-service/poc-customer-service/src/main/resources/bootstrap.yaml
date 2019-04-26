@@ -3,12 +3,6 @@ spring:
     name: poc-customer-service
   profiles:
     active: dev
-  cloud:
-    config:
-      profile: dev
-      discovery:
-        enabled: true
-        service-id: poc-config-service
 
 management:
   endpoints:
@@ -43,7 +37,6 @@ eureka:
     lease:
       duration: 5
 
-
 jasypt:
   encryptor:
     password: 2018199836217578019236
@@ -69,6 +62,17 @@ spring:
         service-id: poc-config-service
 server:
   port:  9041
+---
+spring:
+  profiles: dev2
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: poc-config-service
+server:
+  port:  9042
 ---
 spring:
   profiles: test
