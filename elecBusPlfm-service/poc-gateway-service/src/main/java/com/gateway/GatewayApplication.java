@@ -20,6 +20,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
+import com.netflix.loadbalancer.BestAvailableRule;
+import com.netflix.loadbalancer.IRule;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -48,6 +50,13 @@ public class GatewayApplication  {
 		registrationBean.setName("HystrixMetricsStreamServlet");
 		return registrationBean;
 	}
+	
+	@Bean
+    public IRule myRule(){
+        //return new RoundRobinRule();//轮询
+        //return new RetryRule();//重试
+        return new BestAvailableRule();
+    }
 
 }
 
