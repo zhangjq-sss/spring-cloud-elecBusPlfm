@@ -9,8 +9,8 @@
 		<artifactId>product-order-center</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>tx-Manager</artifactId>
-	<name>tx-Manager</name>
+	<artifactId>poc-tx-manager</artifactId>
+	<name>poc-tx-manager</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
