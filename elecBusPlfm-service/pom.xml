@@ -184,8 +184,6 @@
 	<modules>
 		<module>poc-config-service</module>  	     <!-- 01配置中心 -->
 		<module>poc-discovery-service</module> 	     <!-- 02服务注册中心 -->
-		<module>poc-discovery-service2</module> 	     <!-- 02服务注册中心2 -->
-		<module>poc-discovery-service3</module> 	     <!-- 02服务注册中心3 -->
 		<module>poc-gateway-service</module> 	     <!-- 03服务API网关 -->
 		<module>poc-auth-service</module>  		     <!-- 04认证中心 -->
 		<module>poc-common-util</module>   		 <!-- 05工具基础库 -->
