@@ -20,7 +20,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-@EnableDistributedTransaction
+//@EnableDistributedTransaction
 @EnableAsync
 @EnableFeignClients
 @SpringBootApplication

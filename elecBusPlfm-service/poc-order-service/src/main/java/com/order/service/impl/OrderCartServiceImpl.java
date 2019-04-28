@@ -35,7 +35,7 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 
 	@Override
 	@Transactional
-	@LcnTransaction
+//	@LcnTransaction
 	public RrcResponse addShopingCart(AddShopingCartModel addShopingCartModel) {
 		long start = System.currentTimeMillis();
 		log.info("加入购物车开始--------" + start);

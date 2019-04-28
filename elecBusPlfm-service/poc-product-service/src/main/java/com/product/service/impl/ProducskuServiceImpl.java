@@ -47,7 +47,7 @@ public class ProducskuServiceImpl extends BaseBiz<ProducskuMapper,Producsku> imp
 
 	@Override
 	@Transactional
-	@LcnTransaction
+//	@LcnTransaction
 	public RrcResponse updateProdCount(Integer skuId, int count) {
 		//校验当前产品数量是否大于加入购物车数量
 		Producsku sku = selectById(skuId);
@@ -61,7 +61,7 @@ public class ProducskuServiceImpl extends BaseBiz<ProducskuMapper,Producsku> imp
 		Example example = new Example(Producsku.class);
 		Example.Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("id", skuId);
-//		criteria.andEqualTo("version", sku.getVersion());
+		criteria.andEqualTo("version", sku.getVersion());
 		Producsku record = new Producsku();
 		record.setStock(sku.getStock()-count);
 		record.setUpdTime(new Date());
