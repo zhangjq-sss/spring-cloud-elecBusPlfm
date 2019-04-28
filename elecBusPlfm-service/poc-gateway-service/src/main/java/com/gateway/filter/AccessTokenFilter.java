@@ -70,7 +70,7 @@ public class AccessTokenFilter extends ZuulFilter {
 		if (!flag && token == null) {
 			log.warn("token is empty");
 			ctx.setSendZuulResponse(false);
-			ctx.setResponseStatusCode(CodeMsg.POC_ERROR_USER_NOACCOUNT.getCode());
+			ctx.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
 			ctx.setResponseBody(getErrorResponse(CodeMsg.POC_ERROR_USER_NOACCOUNT.getCode(),CodeMsg.POC_ERROR_USER_NOACCOUNT.getMsg()));
 			return null;
 
@@ -79,7 +79,7 @@ public class AccessTokenFilter extends ZuulFilter {
 				if (!checkToken(token)) {
 					log.error("token invalid! {}", CodeMsg.POC_ERROR_TOKEN_EXPIRE.getMsg());
 					ctx.setSendZuulResponse(false);
-					ctx.setResponseStatusCode(CodeMsg.POC_ERROR_TOKEN_EXPIRE.getCode());
+					ctx.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
 					ctx.setResponseBody(getErrorResponse(CodeMsg.POC_ERROR_TOKEN_EXPIRE.getCode(),CodeMsg.POC_ERROR_TOKEN_EXPIRE.getMsg()));
 					ctx.getResponse().setContentType("text/html;charset=UTF-8");
 				} else {

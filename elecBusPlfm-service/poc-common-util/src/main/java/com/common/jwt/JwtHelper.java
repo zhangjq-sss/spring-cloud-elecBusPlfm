@@ -115,7 +115,7 @@ public class JwtHelper {
 	public static void main(String[] args) {
 //		String token = getToken("zjq", "MTIzNDU2", 30000);
 //		System.out.println(token);
-		System.out.println(checkToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVU0VSTkFNRSI6InpqcSIsImV4cCI6MTU1NTY2MTA4MH0.8bF3G8ZZayuvow0aM_HNr4ZzliflTAftu0xbvpKWK-s",
-				"zjq", "MTIzNDU2"));
+		System.out.println(checkToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVU0VSTkFNRSI6InpqcSIsIlJFRlJFU0hUSU1FIjoxNTU2NDIwNjM4LCJleHAiOjE1NTY2Nzk4Mzh9.krlxgj0ZmhYnxeuZ1y2JR3_w0VIjw4clHMU-3vsOeEY",
+				"zjq", "SECRET_zjq"));
 	}
 }
