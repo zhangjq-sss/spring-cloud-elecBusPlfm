@@ -22,6 +22,7 @@ public class CodeMsg {
 	
 	public static CodeMsg POC_ERROR_REQUEST_OTHER_SERVICE = new CodeMsg(9999, "调用其他服务异常");
 	public static CodeMsg POC_ERROR_TOKEN_EXPIRE = new CodeMsg(8888, "TOKEN 无效");
+	public static CodeMsg POC_ERROR_LIMIT = new CodeMsg(7777, "对不起，请重试");
 	
 	//auth模块10001
 	public static CodeMsg POC_ERROR_USER_NOACCOUNT = new CodeMsg(10001, "账号或token不存在");

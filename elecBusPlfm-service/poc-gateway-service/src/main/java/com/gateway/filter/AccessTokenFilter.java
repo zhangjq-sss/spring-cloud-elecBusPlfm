@@ -72,6 +72,7 @@ public class AccessTokenFilter extends ZuulFilter {
 			ctx.setSendZuulResponse(false);
 			ctx.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
 			ctx.setResponseBody(getErrorResponse(CodeMsg.POC_ERROR_USER_NOACCOUNT.getCode(),CodeMsg.POC_ERROR_USER_NOACCOUNT.getMsg()));
+			ctx.getResponse().setContentType("text/html;charset=UTF-8");
 			return null;
 
 		} else if (!flag && token != null) {
