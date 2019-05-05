@@ -38,4 +38,6 @@ public interface RedisService {
      */
     boolean existsKey(String key);
 
+    //增减
+    long increment(String key, int value);
 }

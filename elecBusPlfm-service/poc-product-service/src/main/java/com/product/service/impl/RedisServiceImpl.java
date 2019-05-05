@@ -77,4 +77,9 @@ public class RedisServiceImpl implements RedisService {
         });
         return result;
     }
+    
+    @Override
+	public long increment(String key, int value) {
+		return redisTemplate.opsForValue().increment(key, value);
+	}
 }
