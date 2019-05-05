@@ -1,6 +1,7 @@
 package com.order.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,8 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 	private ProducskuControllerClient producskuControllerClient;
 	@Autowired
     private RedisService redisService;
+	@Autowired
+    private AmqpTemplate template;
 
 	@Override
 	@Transactional
@@ -95,7 +98,11 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 		if (redisService.increment(cart.getSkuId()+"-stock", -1)>=0) {
 			//异步处理订单
 			log.info("我抢到了，恭喜我吧");
-			
+			//更新库存
+			template.convertAndSend("exchange", "updateProStock", cart);
+			//加入购物车
+			cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
+			template.convertAndSend("exchange", "createCart", cart);
 			return new RrcResponse(CodeMsg.SUCCESS);
 		}
 		return  new RrcResponse(CodeMsg.POC_ERROR_STOCK_LOW);
