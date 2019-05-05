@@ -37,8 +37,8 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 	@Transactional
 //	@LcnTransaction
 	public RrcResponse addShopingCart(AddShopingCartModel addShopingCartModel) {
-		long start = System.currentTimeMillis();
-		log.info("加入购物车开始--------" + start);
+//		long start = System.currentTimeMillis();
+//		log.info("加入购物车开始--------" + start);
 		RrcResponse response = new RrcResponse(CodeMsg.SUCCESS);
 		//校验参数
 		OrderCart cart = OrderTransfModel.getOrderCart(addShopingCartModel);
@@ -53,7 +53,7 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 		//入库
 		cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
 		insertSelective(cart);
-		log.info("加入购物车结束--------" + (System.currentTimeMillis()-start));
+//		log.info("加入购物车结束--------" + (System.currentTimeMillis()-start));
 		return response;
 	}
 

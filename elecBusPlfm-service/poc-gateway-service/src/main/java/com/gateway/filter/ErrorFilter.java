@@ -47,11 +47,13 @@ public class ErrorFilter extends ZuulFilter {
 				context.setResponseStatusCode(errorHandler.getResponseCode());
 				String body = errorHandler.getResponseBody(null, context.getThrowable());
 				context.setResponseBody(body);
+				context.getResponse().setContentType("text/html;charset=UTF-8");
 
 			} else {
 				context.setResponseStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				context.setResponseBody(getErrorResponse(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
 						context.getThrowable().getMessage()));
+				context.getResponse().setContentType("text/html;charset=UTF-8");
 			}
 			context.remove("throwable");
 			context.put(KEY_ERROR, true);

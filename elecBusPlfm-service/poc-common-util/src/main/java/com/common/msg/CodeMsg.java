@@ -22,7 +22,9 @@ public class CodeMsg {
 	
 	public static CodeMsg POC_ERROR_REQUEST_OTHER_SERVICE = new CodeMsg(9999, "调用其他服务异常");
 	public static CodeMsg POC_ERROR_TOKEN_EXPIRE = new CodeMsg(8888, "TOKEN 无效");
-	public static CodeMsg POC_ERROR_LIMIT = new CodeMsg(7777, "对不起，请重试");
+	public static CodeMsg POC_ERROR_LIMIT = new CodeMsg(7777, "对不起，当前人数太多了，请重试");
+	
+	public static CodeMsg POC_ERROR_ZUUL = new CodeMsg(6666, "对不起，当前请求人太多了，请稍后重试");
 	
 	//auth模块10001
 	public static CodeMsg POC_ERROR_USER_NOACCOUNT = new CodeMsg(10001, "账号或token不存在");
@@ -37,7 +39,7 @@ public class CodeMsg {
 	
 	//product模块30001
 	public static CodeMsg POC_ERROR_STOCK_LOW = new CodeMsg(30001, "当前库存不允许添加这么多");
-	public static CodeMsg POC_ERROR_UPDATESTOCK = new CodeMsg(30002, "对不起，更新库存失败");
+	public static CodeMsg POC_ERROR_UPDATESTOCK = new CodeMsg(30002, "抱歉，差一点就抢到了");
 	
 	//payment模块40001
 	

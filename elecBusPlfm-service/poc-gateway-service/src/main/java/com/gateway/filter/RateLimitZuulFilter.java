@@ -25,8 +25,8 @@ public class RateLimitZuulFilter extends ZuulFilter {
 
 	private static final String SERVICE_ID_KEY = "serviceId";
 	private static final String REQUESTURI_KEY = "requestURI";
-    private RateLimiter rateLimiterAll = RateLimiter.create(100);//并发数每秒100
-    private RateLimiter rateLimiterAddCart = RateLimiter.create(10);//并发数每秒10
+    private RateLimiter rateLimiterAll = RateLimiter.create(10000);//并发数每秒100
+    private RateLimiter rateLimiterAddCart = RateLimiter.create(1000);//并发数每秒10
 
     public String getErrorResponse(int status, String message) {
 		return JsonUtil.toJson(new RrcResponse(status, message, null));
@@ -42,7 +42,7 @@ public class RateLimitZuulFilter extends ZuulFilter {
         // 这边的order一定要大于org.springframework.cloud.netflix.zuul.filters.pre.PreDecorationFilter的order
         // 也就是要大于5
         // 否则，RequestContext.getCurrentContext()里拿不到serviceId等数据。
-        return Ordered.LOWEST_PRECEDENCE;
+        return FilterConstants.PRE_DECORATION_FILTER_ORDER + 1;
     }
 
     @Override
@@ -61,22 +61,18 @@ public class RateLimitZuulFilter extends ZuulFilter {
             	String addCartUrl = (String) context.get(REQUESTURI_KEY);
             	if (addCartUrl.contains("addShopingCart")) {
             		if (!rateLimiterAddCart.tryAcquire(100, TimeUnit.MILLISECONDS)) {
-    					log.info("---添加购物车限流控制----");
     					context.setSendZuulResponse(false);
     					context.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
     					context.setResponseBody(getErrorResponse(CodeMsg.POC_ERROR_LIMIT.getCode(),CodeMsg.POC_ERROR_LIMIT.getMsg()));
     					context.getResponse().setContentType("text/html;charset=UTF-8");
                     }
-            		log.info("---获得添加购物车资格----");
 				}else {
 					if (!rateLimiterAll.tryAcquire(100, TimeUnit.MILLISECONDS)) {
-						log.info("---全局限流控制控制----");
 						context.setSendZuulResponse(false);
 						context.setResponseStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
 						context.setResponseBody(getErrorResponse(CodeMsg.POC_ERROR_LIMIT.getCode(),CodeMsg.POC_ERROR_LIMIT.getMsg()));
 						context.getResponse().setContentType("text/html;charset=UTF-8");
 					}
-					log.info("---请求通过----");
 				}
             	return null;  
             }

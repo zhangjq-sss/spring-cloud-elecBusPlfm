@@ -103,7 +103,7 @@ public class AccessTokenFilter extends ZuulFilter {
 
 	@Override
 	public int filterOrder() {
-		return 0;
+		return FilterConstants.PRE_DECORATION_FILTER_ORDER + 2;
 	}
 
 	public ResponseHandler getResponseHandler() {
