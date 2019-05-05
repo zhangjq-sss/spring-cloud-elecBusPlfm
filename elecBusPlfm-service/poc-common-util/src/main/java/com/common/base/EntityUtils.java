@@ -4,6 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.net.URLDecoder;
@@ -20,6 +22,7 @@ import java.util.Date;
  * @date 2016年4月18日
  * @since 1.7
  */
+@Slf4j
 public class EntityUtils {
 	/**
 	 * 快速将bean的crtUser、crtHost、crtTime、updUser、updHost、updTime附上相关值
@@ -39,7 +42,12 @@ public class EntityUtils {
 	 * @author 王浩彬
 	 */
 	public static <T> void setCreateInfo(T entity){
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpServletRequest request = null;
+		try {
+			request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		} catch (Exception e) {
+			log.info("当前不是http请求");
+		}
 		String hostIp = "";
 		String name = "";
 		String id = "";
@@ -76,7 +84,12 @@ public class EntityUtils {
 	 * @author 王浩彬
 	 */
 	public static <T> void setUpdatedInfo(T entity){
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpServletRequest request = null;
+		try {
+			request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		} catch (Exception e) {
+			log.info("当前不是http请求");
+		}
 		String hostIp = "";
 		String name = "";
 		String id = "";
