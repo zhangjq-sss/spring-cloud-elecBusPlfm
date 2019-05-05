@@ -25,5 +25,11 @@ public class OrderCartController extends BaseController<OrderCartServiceImpl,Ord
 	public RrcResponse addShopingCart(AddShopingCartModel addShopingCartModel) {
 		return orderCartService.addShopingCart(addShopingCartModel);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/addShopingCartByRedis", method=RequestMethod.POST)
+	public RrcResponse addShopingCartByRedis(AddShopingCartModel addShopingCartModel) {
+		return orderCartService.addShopingCartByRedis(addShopingCartModel);
+	}
 
 }

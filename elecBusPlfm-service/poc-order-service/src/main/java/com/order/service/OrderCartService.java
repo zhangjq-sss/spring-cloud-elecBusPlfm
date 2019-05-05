@@ -8,4 +8,6 @@ import com.domain.order.model.request.AddShopingCartModel;
 public interface OrderCartService extends ICRUDService<OrderCart>{
 
 	RrcResponse addShopingCart(AddShopingCartModel addShopingCartModel);
+	
+	RrcResponse addShopingCartByRedis(AddShopingCartModel addShopingCartModel);
 }

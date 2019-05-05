@@ -2,6 +2,7 @@ package com.product.service.impl;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import com.common.msg.RrcResponse;
 import com.domain.product.Producsku;
 import com.product.mapper.ProducskuMapper;
 import com.product.service.ProducskuService;
+import com.product.service.RedisService;
 
 import lombok.extern.slf4j.Slf4j;
 import tk.mybatis.mapper.entity.Example;
@@ -29,6 +31,8 @@ public class ProducskuServiceImpl extends BaseBiz<ProducskuMapper,Producsku> imp
 	
 	 //乐观锁冲突最大重试次数
     private static final int DEFAULT_MAX_RETRIES = 1;
+    @Autowired
+    private RedisService redisService;
 
 	@Override
 	public Boolean validate(Producsku entity) {
@@ -81,5 +85,12 @@ public class ProducskuServiceImpl extends BaseBiz<ProducskuMapper,Producsku> imp
 		} while (retriesTimes<DEFAULT_MAX_RETRIES);
 //		int a = 1/0;
 		return new RrcResponse(CodeMsg.POC_ERROR_UPDATESTOCK);
+	}
+
+	@Override
+	public RrcResponse setProCountInRedis(Integer skuId) {
+		Producsku sku = selectById(skuId);
+		redisService.increment(sku.getId()+"-"+ "stock", sku.getStock());
+		return new RrcResponse(CodeMsg.SUCCESS);
 	}
 }

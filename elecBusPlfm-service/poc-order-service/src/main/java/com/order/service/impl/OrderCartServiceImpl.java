@@ -16,6 +16,7 @@ import com.domain.order.model.request.AddShopingCartModel;
 import com.order.client.ProducskuControllerClient;
 import com.order.mapper.OrderCartMapper;
 import com.order.service.OrderCartService;
+import com.order.service.RedisService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +33,8 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 	
 	@Autowired
 	private ProducskuControllerClient producskuControllerClient;
+	@Autowired
+    private RedisService redisService;
 
 	@Override
 	@Transactional
@@ -80,5 +83,21 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 	@Override
 	public Boolean validateForDelete(OrderCart entity) {
 		return true;
+	}
+
+	@Override
+	public RrcResponse addShopingCartByRedis(AddShopingCartModel addShopingCartModel) {
+		// 校验参数
+		OrderCart cart = OrderTransfModel.getOrderCart(addShopingCartModel);
+		if (!validateForInsert(cart)) {
+			return new RrcResponse(CodeMsg.POC_ERROR_PARAMETER);
+		}
+		if (redisService.increment(cart.getSkuId()+"-stock", -1)>=0) {
+			//异步处理订单
+			log.info("我抢到了，恭喜我吧");
+			
+			return new RrcResponse(CodeMsg.SUCCESS);
+		}
+		return  new RrcResponse(CodeMsg.POC_ERROR_STOCK_LOW);
 	}
 }
