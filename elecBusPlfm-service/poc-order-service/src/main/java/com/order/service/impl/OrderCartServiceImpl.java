@@ -3,6 +3,7 @@ package com.order.service.impl;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +104,11 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 			log.info("我抢到了，恭喜我吧");
 			CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
 			//更新库存
-			template.convertAndSend("exchange", "updateProStock", cart, correlationId);
+			template.convertAndSend("exchange-delay", "updateProStock", cart, message ->{
+		        message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+		        message.getMessageProperties().setDelay(1 * (60*1000));   // 毫秒为单位，指定此消息的延时时长
+		        return message;
+		    },correlationId);
 			//加入购物车
 			cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
 			template.convertAndSend("exchange", "createCart", cart, correlationId);

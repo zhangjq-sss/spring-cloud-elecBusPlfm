@@ -46,15 +46,22 @@ public class MQSenderConfig  implements ConfirmCallback,ReturnCallback{
     public TopicExchange exchange() {
         return new TopicExchange("exchange");
     }
-
+    
     @Bean
-    Binding bindingExchangeMessage(@Qualifier("orderCart") Queue queueMessage, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessage).to(exchange).with("createCart");
+    public TopicExchange exchangeDelay() {
+    	TopicExchange topicExchange = new TopicExchange("exchange-delay");
+    	topicExchange.setDelayed(true);
+        return topicExchange;
     }
 
     @Bean
-    Binding bindingExchangeMessages(@Qualifier("productSku") Queue queueMessages, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessages).to(exchange).with("updateProStock");//*表示一个词,#表示零个或多个词
+    Binding bindingExchangeMessage(@Qualifier("orderCart") Queue queueMessage) {
+        return BindingBuilder.bind(queueMessage).to(exchange()).with("createCart");
+    }
+
+    @Bean
+    Binding bindingExchangeMessages(@Qualifier("productSku") Queue queueMessages) {
+        return BindingBuilder.bind(queueMessages).to(exchangeDelay()).with("updateProStock");//*表示一个词,#表示零个或多个词
     }
     
 
