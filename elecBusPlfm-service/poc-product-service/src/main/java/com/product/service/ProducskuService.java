@@ -15,6 +15,6 @@ public interface ProducskuService extends ICRUDService<Producsku>{
 	 */
 	RrcResponse updateProdCount(Integer skuId, int count);
 	
-	RrcResponse setProCountInRedis(Integer skuId);
+	RrcResponse setProCountInRedis(Integer skuId, int stock);
 	
 }

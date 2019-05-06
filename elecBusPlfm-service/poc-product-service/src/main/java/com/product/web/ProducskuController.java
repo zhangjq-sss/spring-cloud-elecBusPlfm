@@ -27,8 +27,8 @@ public class ProducskuController extends BaseController<ProducskuServiceImpl,Pro
 	
 	@ResponseBody
 	@RequestMapping(value="/setProCountInRedis", method=RequestMethod.POST)
-	public RrcResponse setProCountInRedis(Integer skuId) {
-		return producskuService.setProCountInRedis(skuId);
+	public RrcResponse setProCountInRedis(Integer skuId, int stock) {
+		return producskuService.setProCountInRedis(skuId, stock);
 	}
 
 }

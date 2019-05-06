@@ -55,7 +55,7 @@ public class ProducskuServiceImpl extends BaseBiz<ProducskuMapper,Producsku> imp
 	}
 
 	@Override
-//	@Transactional
+	@Transactional
 //	@LcnTransaction
 	public RrcResponse updateProdCount(Integer skuId, int count) {
 		int retriesTimes = 0;
@@ -88,9 +88,8 @@ public class ProducskuServiceImpl extends BaseBiz<ProducskuMapper,Producsku> imp
 	}
 
 	@Override
-	public RrcResponse setProCountInRedis(Integer skuId) {
-		Producsku sku = selectById(skuId);
-		redisService.increment(sku.getId()+"-"+ "stock", sku.getStock());
+	public RrcResponse setProCountInRedis(Integer skuId, int stock) {
+		redisService.increment(skuId+"-"+ "stock", stock);
 		return new RrcResponse(CodeMsg.SUCCESS);
 	}
 }
