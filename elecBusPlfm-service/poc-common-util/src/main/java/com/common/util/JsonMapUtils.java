@@ -1,5 +1,8 @@
 package com.common.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Map;
@@ -82,5 +85,26 @@ public class JsonMapUtils {
     public static Map<String, Object> jsonToMap(String json){
     	return JSONObject.parseObject(json,Map.class); 
     }
+    
+    /**  
+     * 字节数组转对象  
+     * @param bytes  
+     * @return  
+     */  
+    public static Object toObject (byte[] bytes) {      
+        Object obj = null;      
+        try {        
+            ByteArrayInputStream bis = new ByteArrayInputStream (bytes);        
+            ObjectInputStream ois = new ObjectInputStream (bis);        
+            obj = ois.readObject();      
+            ois.close();   
+            bis.close();   
+        } catch (IOException ex) {        
+            ex.printStackTrace();   
+        } catch (ClassNotFoundException ex) {        
+            ex.printStackTrace();   
+        }      
+        return obj;    
+    }   
     
 }
