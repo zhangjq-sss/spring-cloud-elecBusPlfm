@@ -92,4 +92,34 @@ public class ProducskuServiceImpl extends BaseBiz<ProducskuMapper,Producsku> imp
 		redisService.increment(skuId+"-"+ "stock", stock);
 		return new RrcResponse(CodeMsg.SUCCESS);
 	}
+
+	@Override
+	@Transactional
+	public boolean compensateProStock(Integer skuId, int count) {
+		int retriesTimes = 0;
+		do {
+			//校验当前产品数量是否大于加入购物车数量
+			Producsku sku = selectById(skuId);
+			if (sku==null) {
+				return false;
+			}
+			Example example = new Example(Producsku.class);
+			Example.Criteria criteria = example.createCriteria();
+			criteria.andEqualTo("id", skuId);
+			criteria.andEqualTo("version", sku.getVersion());
+			Producsku record = new Producsku();
+			record.setStock(sku.getStock()+count);
+			record.setUpdTime(new Date());
+			record.setVersion(sku.getVersion()+1);
+			retriesTimes++;
+			int ret = mapper.updateByExampleSelective(record, example);
+			if (ret>0) {
+				return true;
+			}
+		}while (retriesTimes<DEFAULT_MAX_RETRIES);
+		
+		return false;
+	}
+	
+	
 }

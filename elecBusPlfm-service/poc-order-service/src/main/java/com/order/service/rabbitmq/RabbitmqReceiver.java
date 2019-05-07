@@ -1,11 +1,11 @@
-package com.order.config;
+package com.order.service.rabbitmq;
 
 import java.io.IOException;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
 import com.common.util.JsonMapUtils;
 import com.domain.order.OrderCart;
@@ -14,9 +14,9 @@ import com.rabbitmq.client.Channel;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Configuration
+@Service
 @Slf4j
-public class MQReceiverConfig{
+public class RabbitmqReceiver{
 	@Autowired
 	private OrderCartServiceImpl orderCartService;
 	

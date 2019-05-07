@@ -1,17 +1,14 @@
 package com.order.service.impl;
 
-import java.util.UUID;
-
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.amqp.core.MessageDeliveryMode;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.common.base.BaseBiz;
+import com.common.base.EntityUtils;
 import com.common.enums.ConstantsEnum;
 import com.common.msg.CodeMsg;
 import com.common.msg.RrcResponse;
@@ -22,6 +19,7 @@ import com.order.client.ProducskuControllerClient;
 import com.order.mapper.OrderCartMapper;
 import com.order.service.OrderCartService;
 import com.order.service.RedisService;
+import com.order.service.rabbitmq.RabbitmqSenderService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +39,7 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 	@Autowired
     private RedisService redisService;
 	@Autowired
-    private RabbitTemplate template;
+	private RabbitmqSenderService rabbitmqSenderService;
 
 	@Override
 	@Transactional
@@ -60,10 +58,20 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 		if (!resProdCount.isSuccess()) {
 			return resProdCount;
 		}
-		//入库
-		cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
-		insertSelective(cart);
-//		log.info("加入购物车结束--------" + (System.currentTimeMillis()-start));
+		try {
+			// 入库
+			cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
+			EntityUtils.setCreatAndUpdatInfo(cart);
+	        mapper.insertSelective(cart);
+			// log.info("加入购物车结束--------" + (System.currentTimeMillis()-start));
+//			int i = 1/0;
+		} catch (Exception e) {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			//执行失败 rabbimq补偿机制 商品数量加1
+			rabbitmqSenderService.compensateProStockSend(cart);
+			return new RrcResponse(CodeMsg.POC_ERROR_ADDCART);
+		}
+		
 		return response;
 	}
 
@@ -102,16 +110,11 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 		if (redisService.increment(cart.getSkuId()+"-stock", -1)>=0) {
 			//异步处理订单
 			log.info("我抢到了，恭喜我吧");
-			CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
 			//更新库存
-			template.convertAndSend("exchange-delay", "updateProStock", cart, message ->{
-		        message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
-		        message.getMessageProperties().setDelay(1 * (60*1000));   // 毫秒为单位，指定此消息的延时时长
-		        return message;
-		    },correlationId);
+			rabbitmqSenderService.updateProStockSend(cart);
 			//加入购物车
 			cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
-			template.convertAndSend("exchange", "createCart", cart, correlationId);
+			rabbitmqSenderService.createCartSend(cart);
 			return new RrcResponse(CodeMsg.SUCCESS);
 		}
 		return  new RrcResponse(CodeMsg.POC_ERROR_STOCK_LOW);

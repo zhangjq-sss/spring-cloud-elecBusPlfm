@@ -1,19 +1,13 @@
-package com.order.config;
+package com.product.config;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate.ConfirmCallback;
 import org.springframework.amqp.rabbit.core.RabbitTemplate.ReturnCallback;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,49 +23,6 @@ public class MQSenderConfig  implements ConfirmCallback,ReturnCallback{
 		rabbitTemplate.setReturnCallback(this);
 		rabbitTemplate.setConfirmCallback(this);
 	}
-	
-	@Bean(name="createCart")
-    public Queue createCartQueue() {
-        return new Queue("createCart");
-    }
-
-    @Bean(name="updateProStock")
-    public Queue updateProStockQueue() {
-        return new Queue("updateProStock");
-    }
-    
-    @Bean(name="compensateProStock")
-    public Queue compensateProStockQueue() {
-        return new Queue("compensateProStock");
-    }
-
-    @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange("exchange");
-    }
-    
-    @Bean
-    public TopicExchange exchangeDelay() {
-    	TopicExchange topicExchange = new TopicExchange("exchange-delay");
-    	topicExchange.setDelayed(true);
-        return topicExchange;
-    }
-
-    @Bean
-    Binding bindingExchangeCreateCart(@Qualifier("createCart") Queue queueMessage) {
-        return BindingBuilder.bind(queueMessage).to(exchange()).with("createCart");
-    }
-    
-    @Bean
-    Binding bindingExchangeCompensateProStock(@Qualifier("compensateProStock") Queue queueMessage) {
-        return BindingBuilder.bind(queueMessage).to(exchange()).with("compensateProStock");
-    }
-
-    @Bean
-    Binding bindingExchangeProductSku(@Qualifier("updateProStock") Queue queueMessages) {
-        return BindingBuilder.bind(queueMessages).to(exchangeDelay()).with("updateProStock");//*表示一个词,#表示零个或多个词
-    }
-    
 
 	@Override
 	//如果消息没有到exchange,则confirm回调,ack=false

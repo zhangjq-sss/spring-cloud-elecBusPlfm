@@ -17,4 +17,12 @@ public interface ProducskuService extends ICRUDService<Producsku>{
 	
 	RrcResponse setProCountInRedis(Integer skuId, int stock);
 	
+	/**
+	 * 补偿数量+1
+	 * @param skuId
+	 * @param count
+	 * @return
+	 */
+	boolean compensateProStock(Integer skuId, int count);
+	
 }

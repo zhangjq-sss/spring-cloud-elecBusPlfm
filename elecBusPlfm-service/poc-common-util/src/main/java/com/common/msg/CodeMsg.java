@@ -36,6 +36,7 @@ public class CodeMsg {
 	
 	//order模块20001
 	public static CodeMsg POC_ERROR_UPDATEPRODSTOCK = new CodeMsg(20001, "对不起，调用更新库存失败");
+	public static CodeMsg POC_ERROR_ADDCART = new CodeMsg(20001, "对不起，加入购物车失败");
 	
 	//product模块30001
 	public static CodeMsg POC_ERROR_STOCK_LOW = new CodeMsg(30001, "当前库存不允许添加这么多");
