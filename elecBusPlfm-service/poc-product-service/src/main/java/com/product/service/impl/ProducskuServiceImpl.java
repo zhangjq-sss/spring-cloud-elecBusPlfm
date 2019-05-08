@@ -13,7 +13,7 @@ import com.common.msg.RrcResponse;
 import com.domain.product.Producsku;
 import com.product.mapper.ProducskuMapper;
 import com.product.service.ProducskuService;
-import com.product.service.RedisService;
+import com.product.service.redis.RedisService;
 
 import lombok.extern.slf4j.Slf4j;
 import tk.mybatis.mapper.entity.Example;

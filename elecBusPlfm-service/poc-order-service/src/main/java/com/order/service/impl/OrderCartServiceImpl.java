@@ -18,8 +18,8 @@ import com.domain.order.model.request.AddShopingCartModel;
 import com.order.client.ProducskuControllerClient;
 import com.order.mapper.OrderCartMapper;
 import com.order.service.OrderCartService;
-import com.order.service.RedisService;
 import com.order.service.rabbitmq.RabbitmqSenderService;
+import com.order.service.redis.RedisService;
 
 import lombok.extern.slf4j.Slf4j;
 

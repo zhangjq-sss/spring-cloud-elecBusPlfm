@@ -1,4 +1,4 @@
-package com.order.service.impl;
+package com.order.service.redis;
 
 import javax.annotation.Resource;
 
@@ -8,8 +8,6 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Service;
-
-import com.order.service.RedisService;
 
 @Service("redisService")
 public class RedisServiceImpl implements RedisService {
