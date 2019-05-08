@@ -1,4 +1,4 @@
-package com.auth.service;
+package com.auth.service.redis;
 
 public interface RedisService {
 	/**

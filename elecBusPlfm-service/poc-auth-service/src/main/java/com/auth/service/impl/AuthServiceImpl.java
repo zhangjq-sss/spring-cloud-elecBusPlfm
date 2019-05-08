@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.auth.feign.CustomerFeignController;
 import com.auth.service.AuthService;
-import com.auth.service.RedisService;
+import com.auth.service.redis.RedisService;
 import com.common.enums.ConstantsEnum;
 import com.common.jwt.JwtHelper;
 import com.common.msg.CodeMsg;

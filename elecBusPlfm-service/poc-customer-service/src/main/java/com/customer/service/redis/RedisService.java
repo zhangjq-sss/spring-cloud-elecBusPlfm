@@ -1,4 +1,4 @@
-package com.customer.service;
+package com.customer.service.redis;
 
 public interface RedisService {
 	/**
