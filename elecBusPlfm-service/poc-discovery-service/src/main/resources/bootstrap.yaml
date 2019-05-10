@@ -34,15 +34,15 @@ eureka:
       response-cache-update-interval-ms:  3000
       response-cache-auto-expiration-in-seconds:  30
   instance:
-    preferIpAddress: true
-    hostname:  dc1.poc.com
+    preferIpAddress: false
+    hostname: 192.168.18.150:8205
   client:
     register-with-eureka: false
     fetch-registry: false
 #    healthcheck:
 #          enabled: true
     serviceUrl:
-          defaultZone: http://dc2.poc.com:8206/eureka,http://dc3.poc.com:8207/eureka
+          defaultZone: http://192.168.18.150:8206/eureka,http://192.168.18.150:8207/eureka
 --- 
 spring:
   profiles: node2
@@ -54,15 +54,15 @@ eureka:
       response-cache-update-interval-ms:  3000
       response-cache-auto-expiration-in-seconds:  30
   instance:
-    preferIpAddress: true
-    hostname:  dc2.poc.com
+    preferIpAddress: false
+    hostname: 192.168.18.150:8206
   client:
     register-with-eureka: false
     fetch-registry: false
 #    healthcheck:
 #      enabled: true
     serviceUrl:
-      defaultZone:  http://dc1.poc.com:8205/eureka,http://dc3.poc.com:8207/eureka
+      defaultZone:  http://192.168.18.150:8205/eureka,http://192.168.18.150:8207/eureka
 ---
 spring:
   profiles: node3
@@ -74,14 +74,14 @@ eureka:
       response-cache-update-interval-ms:  3000
       response-cache-auto-expiration-in-seconds:  30
   instance:
-    preferIpAddress: true
-    hostname:   dc3.poc.com
+    preferIpAddress: false
+    hostname: 192.168.18.150:8207
   client:
     register-with-eureka: false
     fetch-registry: false
 #    healthcheck:
 #          enabled: true
     serviceUrl:
-          defaultZone:  http://dc1.poc.com:8205/eureka,http://dc2.poc.com:8206/eureka
+          defaultZone:  http://192.168.18.150:8205/eureka,http://192.168.18.150:8206/eureka
 
 

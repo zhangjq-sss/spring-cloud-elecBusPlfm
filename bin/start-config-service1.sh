@@ -8,7 +8,7 @@ cd $APP_PATH
 cd ..
 export BASE_PATH=$(cd "$(dirname "$0")"; pwd)
 cd $APP_PATH
-export cmd="java -Xmx256m -Xms128m -Dspring.profiles.active=dev -jar $BASE_PATH/lib/poc-config-service-0.0.1-SNAPSHOT.jar"
+export cmd="java -Xmx256m -Xms128m -Dspring.profiles.active=dev1 -jar $BASE_PATH/lib/poc-config-service-0.0.1-SNAPSHOT.jar"
 
 
 echo "execute [$cmd]"

@@ -16,5 +16,3 @@ sleep 5
 sleep 5
 ./start-config-service.sh
 sleep 20
-./start-auth-service.sh
-sleep 5

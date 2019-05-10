@@ -3,13 +3,6 @@ spring:
     name: poc-order-service
   profiles:
     active: dev
-#  boot:
-#    admin:
-#      client:
-#        url: ${adm:http://adm.poc.com:8220}
-server:
-  port:  9001
-
 
 management:
   endpoints:
@@ -39,7 +32,7 @@ eureka:
     instance-id:  ${spring.cloud.client.ip-address}:${server.port}
   client:
     serviceUrl:
-      defaultZone:  http://dc1.poc.com:8205/eureka,http://dc2.poc.com:8206/eureka,http://dc3.poc.com:8207/eureka
+      defaultZone:  http://192.168.18.150:8205/eureka,http://192.168.18.150:8206/eureka,http://192.168.18.150:8207/eureka
 #    healthcheck:
 #      enabled: true
     lease:
@@ -83,6 +76,30 @@ spring:
       discovery:
         enabled: true
         service-id: poc-config-service
+server:
+  port:  9000
+---
+spring:
+  profiles: dev1
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: poc-config-service
+server:
+  port:  9001
+---
+spring:
+  profiles: dev2
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: poc-config-service
+server:
+  port:  9002
 ---
 spring:
   profiles: test
@@ -92,6 +109,8 @@ spring:
       discovery:
         enabled: true
         service-id: poc-config-service
+server:
+  port:  9001
 ---
 spring:
   profiles: prod
@@ -101,3 +120,5 @@ spring:
       discovery:
         enabled: true
         service-id: poc-config-service
+server:
+  port:  9001

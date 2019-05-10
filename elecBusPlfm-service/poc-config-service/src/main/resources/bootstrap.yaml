@@ -1,0 +1,87 @@
+spring:
+  application:
+    name: poc-config-service
+  profiles:
+    active: dev1
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 30 
+    lease-renewal-interval-in-seconds: 10
+    preferIpAddress: true
+    instance-id:  ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    serviceUrl:
+        defaultZone:  http://192.168.18.150:8205/eureka,http://192.168.18.150:8206/eureka,http://192.168.18.150:8207/eureka
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+## Configuring info endpoint
+info:
+  app:
+    name: ${spring.application.name}
+    server-port: ${server.port}
+    java-version: ${java.version}
+
+jasypt:
+  encryptor:
+    password: 2018199836217578019236
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zhangjq-sss/elec-config.git
+          search-paths: /resources
+          username: ENC(g8gmU15vH6ldFa19H23ifkelBySDze9Hv3g8wqnLNR4=)
+          password: ENC(yWIsflUf/wLJ6t0R0Htg7W1bCwWhLhPW)
+          basedir: ../conf
+          force-pull: true
+          default-label: master
+server:
+  port: 8200
+---
+spring:
+  profiles: dev1
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zhangjq-sss/elec-config.git
+          search-paths: /resources
+          username: ENC(g8gmU15vH6ldFa19H23ifkelBySDze9Hv3g8wqnLNR4=)
+          password: ENC(yWIsflUf/wLJ6t0R0Htg7W1bCwWhLhPW)
+          basedir: ../conf
+          force-pull: true
+          default-label: master
+server:
+  port: 8201
+---
+spring:
+  profiles: dev2
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zhangjq-sss/elec-config.git
+          search-paths: /resources
+          username: ENC(g8gmU15vH6ldFa19H23ifkelBySDze9Hv3g8wqnLNR4=)
+          password: ENC(yWIsflUf/wLJ6t0R0Htg7W1bCwWhLhPW)
+          basedir: ../conf
+          force-pull: true
+          default-label: master
+server:
+  port: 8202
