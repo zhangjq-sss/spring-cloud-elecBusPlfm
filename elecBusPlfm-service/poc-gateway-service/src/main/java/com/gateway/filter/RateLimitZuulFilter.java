@@ -25,8 +25,8 @@ public class RateLimitZuulFilter extends ZuulFilter {
 
 	private static final String SERVICE_ID_KEY = "serviceId";
 	private static final String REQUESTURI_KEY = "requestURI";
-    private RateLimiter rateLimiterAll = RateLimiter.create(10000);//并发数每秒100
-    private RateLimiter rateLimiterAddCart = RateLimiter.create(1000);//并发数每秒10
+    private RateLimiter rateLimiterAll = RateLimiter.create(1000);//并发数每秒1000
+    private RateLimiter rateLimiterAddCart = RateLimiter.create(100);//并发数每秒100
 
     public String getErrorResponse(int status, String message) {
 		return JsonUtil.toJson(new RrcResponse(status, message, null));
