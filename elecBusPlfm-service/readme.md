@@ -16,5 +16,6 @@ poc-payment-service        10支付服务                9030
 poc-job                    11批量任务                9060
 poc-customer-service       12 客户服务               9040
 poc-monitor-service        13 监控服务               8220
+poc-monitor-service        15 监控服务               9070
 后台脱离
 poc-admin-service           14 用户服务 用作后台管理    8080
