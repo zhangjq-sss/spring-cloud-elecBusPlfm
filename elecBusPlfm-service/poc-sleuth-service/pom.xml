@@ -7,33 +7,102 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.9.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com</groupId>
 	<artifactId>poc-sleuth-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>poc-sleuth-service</name>
 	<url>http://maven.apache.org</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>io.zipkin.java</groupId>
-			<artifactId>zipkin-autoconfigure-ui</artifactId>
-			<version>2.4.0</version>
-		</dependency>
 
-		<dependency>
-			<groupId>io.zipkin.java</groupId>
-			<artifactId>zipkin-server</artifactId>
-			<version>2.4.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.logging.log4j</groupId>
-					<artifactId>log4j-slf4j-impl</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	</dependencies>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+		<exclusions>
+               <exclusion>
+                   <groupId>org.springframework.boot</groupId>
+                   <artifactId>spring-boot-starter-tomcat</artifactId>
+               </exclusion>
+           </exclusions>
+	</dependency>
+	
+	<!-- 内嵌 Jetty -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jetty</artifactId>
+		<!--<scope>provided</scope> -->
+	</dependency>
+    
+	<dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-eureka</artifactId>
+    </dependency>
+ 
+	
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jdbc</artifactId>
+	</dependency>
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+
+	<dependency> 
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-sleuth-zipkin-stream</artifactId>
+	</dependency>
+	<dependency> 
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-starter-sleuth</artifactId>
+	</dependency>
+	<dependency> 
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+	</dependency> 
+		<dependency> 
+	    <groupId>org.springframework.cloud</groupId>
+	    <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+	</dependency> 	
+	
+	<dependency>
+         <groupId>io.zipkin.java</groupId>
+         <artifactId>zipkin-server</artifactId>
+     </dependency>
+
+     <dependency>
+         <groupId>io.zipkin.java</groupId>
+         <artifactId>zipkin-autoconfigure-ui</artifactId>
+     </dependency>
+	
+     <dependency>
+         <groupId>io.zipkin.java</groupId>
+         <artifactId>zipkin-autoconfigure-storage-elasticsearch-http</artifactId>
+         <version>1.16.2</version>
+     </dependency>
+	
+    
+  </dependencies>
+  
+  
+  	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Camden.SR6</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 </project>

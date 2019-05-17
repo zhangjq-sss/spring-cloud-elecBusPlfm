@@ -1,5 +1,55 @@
+server:
+  port: 9411
 spring:
   application:
     name: poc-sleuth-service
-server:
-  port: 9411
+  freemarker.enabled: false
+  http:
+    multipart: 
+      max-file-size: 20Mb
+      max-request-size: 30Mb
+      resolve-lazily: false
+  rabbitmq:
+    host: ${RABBITMQ_HOST:192.168.18.150}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:cloud}
+    password: ${RABBITMQ_PASSWORD:cloud}
+    listener:
+      concurrency: ${RABBITMQ_CONCURRENCY:2}
+      max-concurrency: ${RABBITMQ_MAX_CONCURRENCY:2}
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    schema: classpath:/mysql.sql
+    url: jdbc:mysql://192.168.18.150:3306/zipkin_db?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: root
+    password: 123456
+    initialize: true
+    continueOnError: true
+  sleuth:
+    enabled: false
+    sampler:
+      percentage:1.0
+      
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+    prefer-ip-address: true
+    instance-id: 192.168.18.150:9411
+  client:
+    serviceUrl:
+      defaultZone:  http://192.168.18.150:8205/eureka,http://192.168.18.150:8206/eureka,http://192.168.18.150:8207/eureka
+#    healthcheck:
+#      enabled: true
+    lease:
+      duration: 5
+
+zipkin:
+  storage:
+    type: mysql
+    #elasticsearch:
+      #cluster: elasticsearch
+      #hosts: http://192.168.0.186:9200
+      #index: zipkin
+      #index-shards: 5
+      #index-replicas: 1
