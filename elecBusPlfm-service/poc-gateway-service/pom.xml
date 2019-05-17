@@ -82,6 +82,12 @@
 			<artifactId>guava</artifactId>
 			<version>27.1-jre</version>
 		</dependency>
+		<!-- 添加springboot对amqp的支持 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<!-- 添加sleuth-http的支持 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
@@ -89,6 +95,11 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
+		</dependency>
+		<!-- 添加sleuth-rabbitmq的支持 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
 		</dependency>
 	</dependencies>
 
