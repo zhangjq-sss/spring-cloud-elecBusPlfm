@@ -8,10 +8,9 @@ cd ..
 export BASE_PATH=$(cd "$(dirname "$0")"; pwd)
 cd $APP_PATH
 
-export cmd="RABBIT_ADDRESSES=localhost  java -Xms256m -Xmx256m -XX:NewRatio=2 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+HeapDumpOnOutOfMemoryError -jar  $BASE_PATH/lib/zipkin.jar"
+export cmd="java -Xms256m -Xmx256m -jar $BASE_PATH/lib/zipkin.jar  --RABBIT_ADDRESSES=192.168.18.150:5672 --RABBIT_PASSWORD=cloud --RABBIT_USER=cloud"
 
 
 echo "execute [$cmd]"
-nohup  $cmd  > /dev/null  2>&1 &
-
+nohup  $cmd  > /dev/null  2>log &
 
