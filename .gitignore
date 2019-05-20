@@ -8,3 +8,4 @@ logs/
 lib/
 *.rdb
 *.mv.db
+log
