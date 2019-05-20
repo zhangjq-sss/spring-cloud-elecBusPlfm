@@ -17,7 +17,7 @@ sleep 5
 #./start-monitor-service.sh
 sleep 5
 ./start-config-service.sh
-sleep 20
+sleep 30
 ./start-auth-service.sh
 sleep 5
 ./start-product-service.sh
@@ -29,10 +29,12 @@ sleep 5
 ./start-gateway-service.sh
 sleep 5
 ./start-customer-service.sh
+#sleep 5
+#./start-zipkin-rabbitmq-mysql.sh
 
-sleep 5
-./start-payment-service.sh
-sleep 5
-./start-job-service.sh
-sleep 5
-./start-admin-service.sh
+#sleep 5
+#./start-payment-service.sh
+#sleep 5
+#./start-job-service.sh
+#sleep 5
+#./start-admin-service.sh
