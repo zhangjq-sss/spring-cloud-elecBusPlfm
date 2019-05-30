@@ -78,6 +78,9 @@ spring:
         service-id: poc-config-service
 server:
   port:  9000
+snowflakeIdWorker:
+  workerId: 7
+  datacenterId: 2
 ---
 spring:
   profiles: dev1
@@ -89,6 +92,9 @@ spring:
         service-id: poc-config-service
 server:
   port:  9001
+snowflakeIdWorker:
+  workerId: 6
+  datacenterId: 3
 ---
 spring:
   profiles: dev2
@@ -100,6 +106,9 @@ spring:
         service-id: poc-config-service
 server:
   port:  9002
+snowflakeIdWorker:
+  workerId: 5
+  datacenterId: 4
 ---
 spring:
   profiles: test

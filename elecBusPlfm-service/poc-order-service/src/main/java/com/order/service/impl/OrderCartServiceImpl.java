@@ -2,6 +2,7 @@ package com.order.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -40,6 +41,13 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
     private RedisService redisService;
 	@Autowired
 	private RabbitmqSenderService rabbitmqSenderService;
+	/** 工作机器ID(0~31) */
+	@Value("${snowflakeIdWorker.workerId}")
+	private long workerId;
+
+	/** 数据中心ID(0~31) */
+	@Value("${snowflakeIdWorker.datacenterId}")
+	private long datacenterId;
 
 	@Override
 	@Transactional
