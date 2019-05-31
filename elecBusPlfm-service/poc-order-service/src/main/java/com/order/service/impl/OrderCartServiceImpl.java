@@ -1,5 +1,8 @@
 package com.order.service.impl;
 
+import com.domain.redis.RedisLock;
+import com.order.config.SnowflakeIdWorker;
+import com.order.service.redis.RedisLockService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +44,8 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
     private RedisService redisService;
 	@Autowired
 	private RabbitmqSenderService rabbitmqSenderService;
+	@Autowired
+	private RedisLockService redisLockService;
 	/** 工作机器ID(0~31) */
 	@Value("${snowflakeIdWorker.workerId}")
 	private long workerId;
@@ -55,31 +60,39 @@ public class OrderCartServiceImpl extends BaseBiz<OrderCartMapper,OrderCart> imp
 	public RrcResponse addShopingCart(AddShopingCartModel addShopingCartModel) {
 //		long start = System.currentTimeMillis();
 //		log.info("加入购物车开始--------" + start);
+//		Long reqID = new SnowflakeIdWorker(workerId, datacenterId).nextId();
+//		log.info("当前请求ID：" + reqID);
 		RrcResponse response = new RrcResponse(CodeMsg.SUCCESS);
 		//校验参数
 		OrderCart cart = OrderTransfModel.getOrderCart(addShopingCartModel);
 		if (!validateForInsert(cart)) {
 			return new RrcResponse(CodeMsg.POC_ERROR_PARAMETER);
 		}
-		//更新产品sku表商品数量
-		RrcResponse resProdCount = producskuControllerClient.updateProdCount(cart.getSkuId(), cart.getProductCount());
-		if (!resProdCount.isSuccess()) {
-			return resProdCount;
+		//开始加锁
+		RedisLock lock = new RedisLock("add_order_lock", "lock");
+		if (redisLockService.tryLockBySetnx(lock)){
+			try {
+				//更新产品sku表商品数量
+				RrcResponse resProdCount = producskuControllerClient.updateProdCount(cart.getSkuId(), cart.getProductCount());
+				if (!resProdCount.isSuccess()) {
+					return resProdCount;
+				}
+				// 入库
+				cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
+				EntityUtils.setCreatAndUpdatInfo(cart);
+				mapper.insertSelective(cart);
+				// log.info("加入购物车结束--------" + (System.currentTimeMillis()-start));
+				//			int i = 1/0;
+			} catch (Exception e) {
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				//执行失败 rabbimq补偿机制 商品数量加1
+				rabbitmqSenderService.compensateProStockSend(cart);
+				return new RrcResponse(CodeMsg.POC_ERROR_ADDCART);
+			}finally {
+				//释放锁
+				redisLockService.releaseLock(lock);
+			}
 		}
-		try {
-			// 入库
-			cart.setStatus(ConstantsEnum.ORDERCART_STATUS_ADD.getIndexInt());
-			EntityUtils.setCreatAndUpdatInfo(cart);
-	        mapper.insertSelective(cart);
-			// log.info("加入购物车结束--------" + (System.currentTimeMillis()-start));
-//			int i = 1/0;
-		} catch (Exception e) {
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			//执行失败 rabbimq补偿机制 商品数量加1
-			rabbitmqSenderService.compensateProStockSend(cart);
-			return new RrcResponse(CodeMsg.POC_ERROR_ADDCART);
-		}
-		
 		return response;
 	}
 
